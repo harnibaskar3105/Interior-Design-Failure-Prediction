@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+<meta charset="UTF-8">
+<title>User Profile | Interior Design Failure Prediction</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    height:100vh;
+    overflow:hidden;
+}
+
+/* Background */
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background-image:url("https://i.pinimg.com/736x/cc/5f/fb/cc5ffbe969db5d627a29027fac212fe3.jpg");
+    background-size:cover;
+    background-position:center;
+    filter:blur(4px) brightness(0.65);
+    transform:scale(1.05);
+    z-index:-1;
+}
+
+/* Navbar */
+.navbar{
+    background:linear-gradient(135deg,#544738,#6a5a4a);
+    color:#fff5eb;
+    padding:18px 35px;
+    font-size:22px;
+    font-weight:700;
+    position:relative;
+    box-shadow:0 5px 20px rgba(0,0,0,0.25);
+}
+
+.navbar .logo{
+    width:65px;
+    position:absolute;
+    right:20px;
+    top:8px;
+}
+
+/* Layout */
+.container{
+    display:flex;
+    height:calc(100vh - 70px);
+}
+
+/* Sidebar */
+.sidebar{
+    width:240px;
+    background:linear-gradient(180deg,#544738,#3e3229);
+    padding-top:30px;
+}
+
+.sidebar a{
+    display:block;
+    padding:14px 22px;
+    margin:8px 15px;
+    border-radius:10px;
+    text-decoration:none;
+    color:#f3ece6;
+    transition:0.3s ease;
+}
+
+.sidebar a:hover{
+    background:rgba(255,255,255,0.15);
+    transform:translateX(6px);
+}
+
+/* Content */
+.content{
+    flex:1;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:40px;
+}
+
+/* Profile Card */
+.profile-card{
+    width:900px;
+    background:linear-gradient(145deg,#ffffff,#f7f2ec);
+    border-radius:28px;
+    box-shadow:0 30px 80px rgba(0,0,0,0.35);
+    display:flex;
+    overflow:hidden;
+    animation:fadeIn 0.7s ease;
+}
+
+@keyframes fadeIn{
+    from{opacity:0;transform:translateY(20px);}
+    to{opacity:1;transform:translateY(0);}
+}
+
+/* Left */
+.profile-left{
+    width:35%;
+    background:linear-gradient(180deg,#544738,#3e3229);
+    color:white;
+    text-align:center;
+    padding:50px 25px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+}
+
+.profile-left img{
+    width:130px;
+    border-radius:50%;
+    border:5px solid #e4e4e4;
+    margin-bottom:20px;
+}
+
+.profile-left h2{
+    margin-bottom:8px;
+}
+
+.profile-left p{
+    opacity:0.85;
+    font-size:14px;
+}
+
+/* Right */
+.profile-right{
+    width:65%;
+    padding:50px;
+}
+
+/* Section Titles */
+.section-title{
+    font-size:18px;
+    font-weight:600;
+    color:#544738;
+    margin-bottom:18px;
+    border-bottom:2px solid #d6cfc8;
+    padding-bottom:6px;
+}
+
+/* Info Grid */
+.info-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px 40px;
+    margin-bottom:35px;
+}
+
+.info-item span{
+    font-size:13px;
+    color:#888;
+}
+
+.info-item p{
+    margin-top:4px;
+    font-weight:600;
+    color:#333;
+}
+
+/* Stats */
+.stats{
+    display:flex;
+    justify-content:space-between;
+    margin-top:15px;
+}
+
+.stat-box{
+    width:30%;
+    background:#fff;
+    border-radius:16px;
+    text-align:center;
+    padding:22px;
+    box-shadow:0 15px 40px rgba(0,0,0,0.15);
+}
+
+.stat-box h3{
+    color:#544738;
+    font-size:24px;
+}
+
+.stat-box p{
+    font-size:13px;
+    margin-top:6px;
+    color:#666;
+}
+
+/* Buttons */
+.edit-btn{
+    margin-top:35px;
+    display:flex;
+    justify-content:center;
+    gap:35px;
+}
+
+.edit-btn button{
+        padding: 14px 32px;
+        background: linear-gradient(135deg, #544738, #554b40);
+        color: white;
+        border: none;
+        border-radius: 30px;
+        cursor: pointer;
+        font-size: 15px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 22px rgba(0,0,0,0.3);
+}
+
+.edit-btn button:hover{
+    transform:translateY(-4px);
+    box-shadow:0 10px 25px rgba(60,45,35,0.4);
+}
+
+/* ===== MODAL ===== */
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(40,30,20,0.75);
+    backdrop-filter:blur(8px);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    opacity:0;
+    visibility:hidden;
+    transition:0.3s ease;
+    z-index:999;
+}
+
+.modal.show{
+    opacity:1;
+    visibility:visible;
+}
+
+.modal-content{
+    width:650px;
+    background:linear-gradient(145deg,#ffffff,#f6f1eb);
+    border-radius:28px;
+    padding:55px 60px;
+    box-shadow:0 40px 80px rgba(0,0,0,0.4);
+    text-align:center;
+    transform:scale(0.6);
+    opacity:0;
+    transition:0.35s cubic-bezier(0.22,1,0.36,1);
+}
+
+.modal.show .modal-content{
+    transform:scale(1);
+    opacity:1;
+}
+
+.modal-header{
+    font-size:26px;
+    font-weight:700;
+    color:#544738;
+    margin-bottom:20px;
+}
+
+.modal-body{
+    font-size:16px;
+    line-height:1.7;
+    margin-bottom:35px;
+    color:#444;
+}
+
+.modal-buttons{
+    display:flex;
+    justify-content:center;
+    gap:30px;
+}
+
+/* SAME HOVER FOR BOTH BUTTONS */
+.modal-buttons button{
+        padding: 14px 32px;
+        background: linear-gradient(135deg, #544738, #554b40);
+        color: white;
+        border: none;
+        border-radius: 30px;
+        cursor: pointer;
+        font-size: 15px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 22px rgba(0,0,0,0.3);
+}
+
+.modal-buttons button:hover{
+    transform:translateY(-4px);
+    box-shadow:0 10px 25px rgba(60,45,35,0.4);
+}
+.message {
+    text-align: center;
+    font-weight: 400;
+    margin-bottom: 10px;
+    padding: 8px 12px;
+    border-radius: 6px;
+}
+.message.success { color: #155724; }
+.message.error   { color: #721c24; }
+
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+Interior Design Failure Prediction
+<img src="{% static 'images/Smart home logo(png).png' %}" class="logo">
+</div>
+
+<div class="container">
+
+<div class="sidebar">
+<a href="{% url 'home' %}">Home</a>
+<a href="{% url 'dashboard' %}">Dashboard</a>
+<a href="{% url 'history' %}">View Prediction History</a>
+<a href="{% url 'logout' %}">Logout</a>
+<a href="{%url 'design'%}">Our Designs</a>
+</div>
+
+<div class="content">
+<div class="profile-card">
+
+<div class="profile-left">
+<img src="{% if 'http' in userprofile.profile_pic %}
+            {{ userprofile.profile_pic }}
+          {% else %}
+            {% static 'images/avatars/' %}{{ userprofile.profile_pic }}
+          {% endif %}"
+     width="120"
+     style="border-radius:50%;">
+
+<h2>{{ user.first_name }} {{ user.last_name }}</h2>
+<p>{{ userprofile.role }}</p>
+</div>
+
+<div class="profile-right">
+
+<div class="section-title">User Information</div>
+
+<div class="info-grid">
+<div class="info-item">
+<span>Email</span>
+<p>{{ user.email }}</p>
+</div>
+<div class="info-item">
+<span>Username</span>
+<p>{{ user.username }}</p>
+</div>
+<div class="info-item">
+<span>Role</span>
+<p>{{ userprofile.role }}</p>
+</div>
+<div class="info-item">
+<span>Smart Home Type</span>
+<p>{{ userprofile.home_type }}</p>
+</div>
+</div>
+
+<div class="section-title">Prediction Overview</div>
+
+<div class="stats">
+<div class="stat-box">
+<h3>{{ userprofile.total_predictions }}</h3>
+<p>Designs Analyzed</p>
+</div>
+<div class="stat-box">
+<h3>{{ userprofile.failures }}</h3>
+<p>Failures</p>
+</div>
+<div class="stat-box">
+<h3>{{ userprofile.successes }}</h3>
+<p>Successes</p>
+</div>
+</div>
+
+<div class="edit-btn">
+<button onclick="location.href='/edit'">Edit Profile</button>
+<button onclick="openModal()">Delete Profile</button>
+</div>
+{% if messages %}
+            {% for message in messages %}
+                <div class="message {% if message.tags == 'success' %}success{% else %}error{% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+</div>
+</div>
+</div>
+</div>
+
+<!-- MODAL -->
+<div id="deleteModal" class="modal">
+<div class="modal-content">
+<div class="modal-header">Delete Profile</div>
+<div class="modal-body">
+You are about to permanently remove your account.
+All prediction history and statistics will be erased.
+</div>
+<div class="modal-buttons">
+<button onclick="closeModal()">Keep My Profile</button>
+<button onclick="submitDelete()">Delete Permanently</button>
+</div>
+</div>
+</div>
+
+<form id="deleteForm" method="POST" action="{% url 'delete_profile' %}">
+{% csrf_token %}
+</form>
+
+<script>
+function openModal(){
+document.getElementById("deleteModal").classList.add("show");
+}
+function closeModal(){
+document.getElementById("deleteModal").classList.remove("show");
+}
+function submitDelete(){
+document.getElementById("deleteForm").submit();
+}
+window.onclick=function(e){
+const modal=document.getElementById("deleteModal");
+if(e.target===modal){closeModal();}
+}
+</script>
+
+</body>
+</html>

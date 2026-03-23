@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+<meta charset="UTF-8">
+<title>Edit Profile | Interior Design Failure Prediction</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image: url("https://i.pinimg.com/736x/cc/5f/fb/cc5ffbe969db5d627a29027fac212fe3.jpg");
+    background-size: cover;
+    background-position: center;
+    filter: blur(3px) brightness(0.65);
+    transform: scale(1.08);
+    z-index: -1;
+}
+
+.profile-box {
+    background: linear-gradient(135deg, #ffffff, #fffaf3);
+    width: 750px;
+    border-radius: 18px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+    animation: fadeIn 0.5s ease-in-out;
+    position: relative;
+    overflow: hidden;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Header */
+.profile-header {
+    background: linear-gradient(140deg, #544738, #968d82);
+    color: #fff;
+    padding: 35px 20px 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.profile-header .user-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.profile-header .user_img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 4px solid #e4e4e4;
+}
+
+.profile-header .user-text h2 {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.profile-header .user-text p {
+    margin: 5px 0 0;
+    font-size: 14px;
+    opacity: 0.85;
+}
+
+.profile-header .logo {
+    width: 120px;
+}
+
+/* Form */
+.profile-form {
+    padding: 25px 30px 35px;
+}
+
+/* ✅ FIXED MISSING CSS */
+.input-row {
+    display: flex;
+    gap: 15px;
+}
+
+.input-row input,
+.input-row select {
+    flex: 1;
+}
+
+.profile-form input,
+.profile-form select {
+    width: 100%;
+    padding: 11px 14px;
+    margin: 8px 0;
+    border: 1px solid #857b6f;
+    border-radius: 10px;
+    font-size: 14px;
+    background: transparent;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.profile-form input:focus,
+.profile-form select:focus {
+    outline: none;
+    border-color: #544738;
+    box-shadow: 0 0 0 3px rgba(139, 94, 60, 0.25);
+}
+
+/* Buttons */
+.button-row {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 25px;
+}
+
+.button-row button,
+.button-row .btn-link {
+    padding: 14px 32px;
+    background: linear-gradient(135deg, #544738, #554b40);
+    color: white;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 22px rgba(0,0,0,0.3);
+    text-decoration: none;
+}
+
+.button-row button:hover,
+.button-row .btn-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(60,45,35,0.4);
+}
+
+/* Messages */
+
+/* Avatar Grid */
+.avatar-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.avatar-grid img {
+    width: 70px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.avatar-img {
+    width: 70px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    transition: 0.3s;
+}
+
+.selected-avatar {
+    border: 3px solid #544738;
+}
+/* Avatar Button */
+.change-avatar-btn {
+    padding: 14px 32px;
+    background: linear-gradient(135deg, #544738, #554b40);
+    color: white;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 22px rgba(0,0,0,0.3);
+    text-decoration: none;
+}
+
+.change-avatar-btn:hover{
+     transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(60,45,35,0.4);
+}
+
+/* Modal */
+.avatar-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.avatar-modal-content {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    width: 400px;
+    text-align: center;
+    animation: fadeIn 0.3s ease;
+}
+
+.avatar-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.remove-avatar {
+    margin-top: 15px;
+    color: red;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(40,30,20,0.75);
+    backdrop-filter:blur(8px);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    opacity:0;
+    visibility:hidden;
+    transition:0.3s ease;
+    z-index:999;
+}
+
+.modal.show{
+    opacity:1;
+    visibility:visible;
+}
+
+.modal-content{
+    width:650px;
+    background:linear-gradient(145deg,#ffffff,#f6f1eb);
+    border-radius:28px;
+    padding:55px 60px;
+    box-shadow:0 40px 80px rgba(0,0,0,0.4);
+    text-align:center;
+    transform:scale(0.6);
+    opacity:0;
+    transition:0.35s cubic-bezier(0.22,1,0.36,1);
+}
+
+.modal.show .modal-content{
+    transform:scale(1);
+    opacity:1;
+}
+
+.modal-header{
+    font-size:26px;
+    font-weight:700;
+    color:#544738;
+    margin-bottom:20px;
+}
+
+.modal-body{
+    font-size:16px;
+    line-height:1.7;
+    margin-bottom:35px;
+    color:#444;
+}
+
+.modal-buttons{
+    display:flex;
+    justify-content:center;
+    gap:30px;
+}
+
+/* SAME HOVER FOR BOTH BUTTONS */
+.modal-buttons button{
+        padding: 14px 32px;
+        background: linear-gradient(135deg, #544738, #554b40);
+        color: white;
+        border: none;
+        border-radius: 30px;
+        cursor: pointer;
+        font-size: 15px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 22px rgba(0,0,0,0.3);
+}
+
+.modal-buttons button:hover{
+    transform:translateY(-4px);
+    box-shadow:0 10px 25px rgba(60,45,35,0.4);
+}
+</style>
+</head>
+
+<body>
+<div class="profile-box">
+
+    <!-- Header -->
+    <!-- Header -->
+<div class="profile-header">
+    <div class="user-info">
+
+        {% if userprofile.profile_pic|slice:":4" == "http" %}
+            <img src="{{ userprofile.profile_pic }}" class="user_img">
+        {% else %}
+            <img src="{% static 'images/avatars/' %}{{ userprofile.profile_pic }}" class="user_img">
+        {% endif %}
+
+        <div class="user-text">
+            <h2>{{ user.first_name }} {{ user.last_name }}</h2>
+            <p>{{ userprofile.role }}</p>
+            <!-- Change Avatar as a link -->
+            <a href="javascript:void(0);" onclick="openModal()" style="color: #fff; text-decoration: underline; font-weight: 500; font-size: 14px; margin-top: 5px; display: inline-block;">
+                Change Avatar
+            </a>
+        </div>
+    </div>
+
+    <img src="{% static 'images/Smart home logo(png).png' %}" class="logo">
+</div>
+    <!-- Form -->
+    <div class="profile-form">
+
+        
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <div class="input-row">
+                <input type="text" name="first_name" value="{{ user.first_name }}" placeholder="Full Name" required>
+                <input type="email" name="email" value="{{ user.email }}" placeholder="Email" required>
+            </div>
+
+            <div class="input-row">
+                <input type="text" name="username" value="{{ user.username }}" placeholder="Username" required>
+                <input type="password" name="password" placeholder="New Password (leave blank to keep)">
+            </div>
+
+            <div class="input-row">
+                <select name="role" required>
+                    <option {% if userprofile.role == "Interior Analyst" %}selected{% endif %}>Interior Analyst</option>
+                    <option {% if userprofile.role == "Interior Designer" %}selected{% endif %}>Interior Designer</option>
+                    <option {% if userprofile.role == "House Owner" %}selected{% endif %}>House Owner</option>
+                </select>
+
+                <select name="home_type" required>
+                    <option {% if userprofile.home_type == "Apartment" %}selected{% endif %}>Apartment</option>
+                    <option {% if userprofile.home_type == "Villa" %}selected{% endif %}>Villa</option>
+                    <option {% if userprofile.home_type == "Independent House" %}selected{% endif %}>Independent House</option>
+                </select>
+            </div>
+
+            <!-- Avatar Selection -->
+            <!-- Avatar Section -->
+<div style="margin-top:20px;">
+
+    <!-- Hidden field to store selected avatar -->
+   <input type="hidden"
+       name="profile_pic"
+       id="selectedAvatar"
+       value="{{ userprofile.profile_pic }}">
+</div>
+
+<!-- Avatar Modal -->
+<div class="avatar-modal" id="avatarModal">
+    <div class="avatar-modal-content">
+        <h3>Select Avatar</h3>
+
+        <div class="avatar-grid">
+            {% for value, label in avatar_choices %}
+            <img src="{% static 'images/avatars/' %}{{ value }}"
+                 onclick="selectAvatar('{{ value }}')"
+                 class="avatar-img">
+            {% endfor %}
+        </div>
+
+        <div style="color: red; text-decoration: underline; font-weight: 500; font-size: 14px; margin-top: 10px; margin-bottom: 15px; display: inline-block;" onclick="removeAvatar()">
+            Remove Profile Picture
+        </div>
+
+        <br>
+        <button type="button" onclick="closeModal()" class="change-avatar-btn">Close</button>
+    </div>
+</div>
+
+            <div class="button-row">
+                <button type="submit" >Save Changes</button>
+                <a href="{% url 'profile' %}" class="btn-link">Go Back</a>
+                <button type="button" onclick="openModal1()">Delete Profile</button>
+            </div>
+
+        </form>
+
+        <div id="deleteModal" class="modal">
+<div class="modal-content">
+<div class="modal-header">Delete Profile</div>
+<div class="modal-body">
+You are about to permanently remove your account.
+All prediction history and statistics will be erased.
+</div>
+<div class="modal-buttons">
+<button onclick="closeModal1()">Keep My Profile</button>
+<button onclick="submitDelete()">Delete Permanently</button>
+</div>
+</div>
+</div>
+
+<form id="deleteForm" method="POST" action="{% url 'delete_profile' %}">
+{% csrf_token %}
+</form>
+
+<script>
+function openModal() {
+    document.getElementById("avatarModal").style.display = "flex";
+}
+
+function closeModal() {
+    document.getElementById("avatarModal").style.display = "none";
+}
+
+function selectAvatar(value) {
+    document.getElementById("selectedAvatar").value = value;
+
+    // Update preview instantly
+    document.querySelector(".user_img").src =
+        "/static/images/avatars/" + value;
+
+    closeModal();
+}
+
+function removeAvatar() {
+    document.getElementById("selectedAvatar").value = "remove";
+
+    document.querySelector(".user_img").src =
+        "/static/images/avatars/default.png";
+
+    closeModal();
+}
+function openModal1(){
+document.getElementById("deleteModal").classList.add("show");
+}
+function closeModal1(){
+document.getElementById("deleteModal").classList.remove("show");
+}
+function submitDelete(){
+document.getElementById("deleteForm").submit();
+}
+window.onclick=function(e){
+const modal=document.getElementById("deleteModal");
+if(e.target===modal){closeModal1();}
+}
+        </script>
+
+    </div>
+</div>
+</body>
+</html>

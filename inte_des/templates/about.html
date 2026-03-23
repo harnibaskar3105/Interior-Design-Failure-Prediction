@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+<head>
+<meta charset="UTF-8">
+<title>About Us | Interior Design Failure Prediction</title>
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Tahoma, sans-serif;
+    height: 100vh;
+    overflow: hidden; /* prevent scrolling */
+    background: linear-gradient(135deg, #c9c4be, #b3aea8);
+    color: white;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image: url("https://i.pinimg.com/736x/cc/5f/fb/cc5ffbe969db5d627a29027fac212fe3.jpg");
+    background-size: cover;
+    background-position: center;
+    filter: blur(3px) brightness(0.6);
+    transform: scale(1.08);
+    z-index: -1;
+}
+
+/* Header */
+header {
+    background: #fff5eb;
+    color: #544738;
+    padding: 28px 15px;
+    text-align: center;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+    backdrop-filter: blur(6px);
+}
+header .logo{
+        width: 150px;
+        position: absolute;
+        right: 20px;
+        top: -1px;
+}
+header h1 {
+    margin-bottom: 6px;
+    letter-spacing: 0.6px;
+    font-size: 30px;
+}
+header p {
+    margin: 0;
+    font-size: 14px;
+    opacity: 0.85;
+}
+
+/* Main section */
+.about-section {
+    max-width: 1200px;
+    margin: 20px auto 70px; /* bottom space for footer */
+    padding: 10px 30px;
+    animation: fadeIn 0.8s ease-in-out;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.about-section h1 {
+    text-align: center;
+    color: #fff5eb;
+    margin-bottom: 20px;
+    font-size: 36px;
+}
+.about-section p {
+    text-align: center;
+    font-size: 16px;
+    color: #fff5eb;
+    line-height: 1.7;
+    margin-bottom: 40px;
+}
+
+/* Features - same line */
+.features {
+    display: flex;
+    justify-content: space-between; /* spread cards across full width */
+    flex-wrap: nowrap; /* prevent wrapping */
+}
+
+.feature-card {
+    flex: 1;               /* each card takes equal width */
+    margin: 0 10px;        /* spacing between cards */
+    background:linear-gradient(180deg, #ffffff, #d0c7bc);
+    backdrop-filter: blur(10px);
+    padding: 35px 10px;
+    border-radius: 18px;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    transition: transform 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-8px);
+}
+
+.feature-icon {
+    font-size: 36px;
+    margin-bottom: 12px;
+}
+
+.feature-card h3 {
+    color: black;
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+.feature-card p {
+    font-size: 14px;
+    color: rgb(29, 29, 29);
+    line-height: 1.6;
+}
+
+/* Footer */
+.footer {
+    background: linear-gradient(135deg, #544738, #544738);
+    color: white;
+    text-align: center;
+    padding: 8px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    font-size: 14px;
+    box-shadow: 0 -4px 12px rgba(0,0,0,0.25);
+}
+/* Navbar */
+    nav {
+        background: linear-gradient(135deg, #544738, #554b40);
+        padding: 14px;
+        text-align: center;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    nav a {
+        color: white;
+        margin: 0 22px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 16px;
+        position: relative;
+        transition: opacity 0.3s ease;
+    }
+
+    nav a:hover {
+        opacity: 0.9;
+    }
+
+    nav a::after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 2px;
+        background: white;
+        left: 0;
+        bottom: -5px;
+        transition: width 0.3s ease;
+    }
+
+    nav a:hover::after {
+        width: 100%;
+    }
+
+</style>
+</head>
+<body>
+
+<header>
+    <img src="{% static 'images/Smart home logo(png).png' %}"
+         alt="Smart Home Logo"
+         class="logo">
+
+    <div class="header-text">
+        <h1>Interior Design Failure Prediction</h1>
+        <p>AI-Based Smart Home Decision System</p>
+    </div>
+</header>
+<nav class="nav">
+    <a href="{% url 'home' %}">Home</a>
+    <a href="{% url 'profile' %}">Your Profile</a>
+    <a href="{% url 'dashboard' %}">Dashboard</a>
+</nav>
+
+
+<div class="about-section">
+    <h1>About Us</h1>
+    <p>
+        Our Interior Design Failure Prediction system for Smart Homes helps users
+        identify potential risks before implementation. By combining intelligent
+        analysis with smart home parameters, the system improves efficiency,
+        reduces cost, and ensures better design decisions.
+    </p>
+
+    <div class="features">
+        <div class="feature-card">
+            <div class="feature-icon">🏠</div>
+            <h3>Smart Home Focus</h3>
+            <p>Designed for modern smart homes considering automation and space efficiency.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">📊</div>
+            <h3>Failure Prediction</h3>
+            <p>Detects interior design risks using structured data and analysis models.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🖼️</div>
+            <h3>Design Upload</h3>
+            <p>Upload interior designs and analyze layouts for possible failures.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">⚙️</div>
+            <h3>User Friendly</h3>
+            <p>Clean interface designed for students, designers, and homeowners.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🔒</div>
+            <h3>Secure System</h3>
+            <p>Ensures reliable data handling and consistent prediction results.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🎯</div>
+            <h3>Cost Efficient</h3>
+            <p>Saves cost and time by identifying design issues early.</p>
+        </div>
+    </div>
+</div>
+
+<div class="footer">
+    © 2026 Interior Design Failure Prediction | Smart Home Project
+</div>
+
+</body>
+</html>

@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+<meta charset="UTF-8">
+<title>Contact Interior Design Studio</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    color: #333;
+    min-height: 100vh;
+}
+
+/* Background */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image: url("https://i.pinimg.com/736x/cc/5f/fb/cc5ffbe969db5d627a29027fac212fe3.jpg");
+    background-size: cover;
+    background-position: center;
+    filter: blur(4px) brightness(0.85);
+    transform: scale(1.08);
+    z-index: -1;
+}
+
+/* Page Wrapper */
+.contact-page {
+    max-width: 750px;
+    margin: auto;
+    padding: 30px 30px 60px;
+    text-align: center;
+}
+
+/* Logo */
+.logo {
+    width: 130px;
+    margin-bottom: 5px;
+}
+
+/* Title */
+.page-title {
+    color: #fff5eb;
+    font-size: 26px;
+    margin-top: 0;
+    margin-bottom: 18px;
+}
+
+/* Section Box */
+.section {
+    background: rgba(255,255,255,0.88);
+    padding: 22px;
+    border-radius: 14px;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+/* Summary rows */
+.row {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+
+.total {
+    font-weight: bold;
+    font-size: 20px;
+    color: #544738;
+}
+.total .row span:last-child {
+    font-weight: normal;
+    font-size: 18px;
+    color: #333;
+}
+
+/* Inputs */
+.input-field {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0 14px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+/* Contact buttons */
+.contact-btn {
+    width: 100%;
+    padding: 14px;
+    margin-top: 12px;
+    border: none;
+    border-radius: 30px;
+    background: linear-gradient(135deg, #544738, #554b40);
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.contact-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+/* Secondary button */
+.contact-btn.secondary {
+    background: white;
+    color: #544738;
+    border: 2px solid #544738;
+}
+
+/* Note */
+.secure-note {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 13px;
+    color: #fff5eb;
+    opacity: 0.9;
+}
+.contact-icons {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 10px;
+}
+
+.icon-btn {
+    width: 55px;
+    height: 55px;
+    cursor: pointer;
+    transition: 0.3s;
+    border-radius: 50%;
+    padding: 10px;
+    background: white;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+.icon-btn:hover {
+    transform: translateY(-4px) scale(1.08);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.35);
+}
+.design-preview {
+    width: 100%;
+    max-width: 320px;   /* optional: keeps it neat */
+    margin: 0 auto 15px;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border-radius: 12px;
+}
+
+.design-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.section h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.section {
+    background: rgba(255,255,255,0.88);
+    padding: 16px 18px;
+    border-radius: 12px;
+    margin-bottom: 16px;
+}
+
+.contact-icons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 5px;
+}
+
+.icon-btn {
+    width: 48px;
+    height: 48px;
+    padding: 8px;
+}
+
+
+</style>
+</head>
+
+<body>
+
+<div class="contact-page">
+
+    <img src="{% static 'images/Smart home logo(png).png' %}" class="logo">
+
+    <h2 class="page-title">Contact Interior Design Studio</h2>
+
+   <!-- Selected Design -->
+<div class="section">
+    <h3 style="text-align: center;">Selected Design</h3>
+
+    <div class="design-preview">
+        <img id="designImage" alt="Design Preview">
+    </div>
+
+    <div class="total">
+        <div class="row">
+            <span>Design</span>
+            <span id="designName"></span>
+        </div>
+    </div>
+
+    <div class="total">
+        <div class="row">
+            <span>Estimated Cost</span>
+            <span id="amount"></span>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Contact Options -->
+    <div class="section">
+        <h3 style="text-align: center;">Contact Us</h3>
+
+        <div class="contact-icons">
+            <img src="{% static 'images/phone.jpg' %}"
+     class="icon-btn"
+     onclick="contactByPhone()"
+     title="Call Us">
+
+    <img src="{% static 'images/whatsapp.webp' %}"
+         class="icon-btn"
+         onclick="contactWhatsApp()"
+         title="Contact via WhatsApp">
+
+    <img src="{% static 'images/gmail.webp' %}"
+         class="icon-btn"
+         onclick="contactByEmail()"
+         title="Email via Gmail">
+</div>
+
+    </div>
+
+    <div class="secure-note">
+        Professional interior consultation • Response within 24 hours
+    </div>
+
+</div>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const design = params.get("design");
+const amount = params.get("amount");
+
+// ✅ values from Django backend
+const name = "{{ name|escapejs }}";
+const role = "{{ role|escapejs }}";
+// Map design name → image
+const designImages = {
+    "Modern Smart Living Room": "{% static 'images/design1.jpg' %}",
+    "Luxury Bedroom Concept": "{% static 'images/design2.jpg' %}",
+    "Minimalist Smart Kitchen": "{% static 'images/design3.jpg' %}",
+    "Smart Office Workspace": "{% static 'images/design4.jpg' %}",
+    "Luxury Dining Area": "{% static 'images/design5.jpg' %}",
+    "Compact Studio Apartment": "{% static 'images/design6.jpg' %}",
+    "Balcony Lounge Design": "{% static 'images/design7.jpg' %}",
+    "Modern Bathroom Concept": "{% static 'images/design8.jpg' %}",
+    "Scandinavian Living Space": "{% static 'images/design9.jpg' %}",
+    "Smart Home Theater Room": "{% static 'images/design10.jpg' %}",
+    "Kids Smart Bedroom": "{% static 'images/design11.jpg' %}",
+    "Luxury Walk-in Wardrobe": "{% static 'images/design12.jpg' %}",
+    "Modern Entryway": "{% static 'images/design13.jpg' %}",
+    "Eco-Friendly Green Interior":"{% static 'images/design14.jpg' %}",
+    "Premium Guest Master Bedroom": "{% static 'images/design15.jpg' %}",
+    "Compact Study Room": "{% static 'images/design16.jpg' %}"
+};
+
+// Set image
+document.getElementById("designImage").src =
+    designImages[design] || "{% static 'images/default-design.jpg' %}";
+
+// Fill design + price on page
+document.getElementById("designName").innerText = design;
+document.getElementById("amount").innerText =
+    "₹ " + Number(amount).toLocaleString();
+
+function contactWhatsApp() {
+    const text =
+        "Hello, " + name + "%0A%0A" +
+        "Name : " + name + "%0A" +
+        "Role : " + role + "%0A" +
+        "Design Chosen : " + design + "%0A" +
+        "Estimated Cost : ₹ " + Number(amount).toLocaleString(); "%0A%0A" +
+        "I would like more details about this design.";
+
+    window.open(`https://wa.me/917899023615?text=${text}`, "_blank");
+}
+
+function contactByEmail() {
+    const subject = "Interior Design Consultation - " + design;
+
+    const body =
+        "Hello, " + name + "%0D%0A%0D%0A" +
+        "Name : " + name + "%0D%0A" +
+        "Role : " + role + "%0D%0A" +
+        "Design Chosen : " + design + "%0D%0A" +
+        "Estimated Cost : ₹ " + Number(amount).toLocaleString() + "%0D%0A%0D%0A" +
+        "I would like more details about this design.";
+
+    const gmailURL =
+        "https://mail.google.com/mail/?view=cm&fs=1" +
+        "&to=smarthomeinteriordesignproject@email.com" +
+        "&su=" + encodeURIComponent(subject) +
+        "&body=" + body;
+
+    window.open(gmailURL, "_blank");
+}
+function contactByPhone() {
+    window.location.href = "tel:+917899023615";
+}
+
+</script>
+
+
+</body>
+</html>

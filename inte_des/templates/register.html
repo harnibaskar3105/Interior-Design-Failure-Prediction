@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+<meta charset="UTF-8">
+<title>Register | Interior Design Failure Prediction</title>
+
+<style>
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+/* Background */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image: url("https://i.pinimg.com/736x/cc/5f/fb/cc5ffbe969db5d627a29027fac212fe3.jpg");
+    background-size: cover;
+    background-position: center;
+    filter: blur(3px) brightness(0.65);
+    transform: scale(1.08);
+    z-index: -1;
+}
+
+/* Register Card */
+.register-box {
+    width: 430px;
+    max-width: 95%;
+    background: linear-gradient(135deg, #ffffff, #d0c7bc);
+    padding: 35px;
+    border-radius: 18px;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.35);
+    backdrop-filter: blur(12px);
+    animation: fadeCenter 0.6s ease;
+    max-height: 95vh;
+    overflow-y: auto;
+}
+
+/* Popup Overlay */
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    display: none;
+
+    /* Proper Centering */
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* Popup Card */
+.popup-card {
+    width: 380px;
+    background: linear-gradient(135deg, #ffffff, #d0c7bc);
+    padding: 25px;
+    border-radius: 18px;
+    box-shadow: 0 20px 45px rgba(0,0,0,0.35);
+    animation: popCenter 0.4s ease;
+}
+.popup-card ul {
+    font-size: 14px;
+    padding-left: 20px;
+    margin: 15px 0;
+}
+
+.popup-card ul li {
+    margin-bottom: 8px;   /* gap between points */
+    line-height: 1.5;
+}
+
+
+@keyframes fadeCenter {
+    from { opacity: 0; transform: scale(0.92); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes popCenter {
+    from { opacity: 0; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+h1 {
+    text-align: center;
+    color: #544738;
+    margin-bottom: 5px;
+}
+
+.subtitle {
+    text-align: center;
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+input {
+    width: 93%;
+    padding: 14px;
+    margin-bottom: 15px;
+    border: 1px solid #544738;
+    border-radius: 10px;
+    font-size: 14px;
+    background: transparent;
+    outline: none;
+}
+select {
+    width: 100%;
+    padding: 14px;
+    margin-bottom: 15px;
+    border: 1px solid #544738;
+    border-radius: 10px;
+    font-size: 14px;
+    background: transparent;
+    outline: none;
+}
+
+input:focus, select:focus {
+    box-shadow: 0 0 0 3px #aea193;
+}
+
+.rules-link {
+    font-size: 13px;
+    color: #544738;
+    cursor: pointer;
+    margin: -5px auto 15px auto;   /* auto left & right centers it */
+    display: block;                /* must be block to center */
+    text-align: center;
+}
+
+
+.rules-link:hover {
+    text-decoration: underline;
+}
+
+/* Buttons */
+button {
+    width: 65%;
+    padding: 14px;
+    background: linear-gradient(135deg, #544738, #554b40);
+    color: white;
+    border: none;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 30px;
+    display: block;
+    margin: 25px auto 10px;
+    transition: 0.3s ease;
+    box-shadow: 0 12px 25px rgba(0,0,0,0.35);
+}
+
+button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 18px 35px rgba(0,0,0,0.45);
+}
+
+.close-btn {
+    background: #544738;
+    width: 100%;
+    margin-top: 15px;
+    border-radius: 10px;
+}
+
+.login-link {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.login-link a {
+    color: #544738;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.login-link a:hover { text-decoration: underline; }
+.message {
+        text-align: center;
+        font-weight: 400;
+        margin-bottom: 10px;
+        padding: 8px 12px;
+        border-radius: 6px;
+    }
+    .message.success { color: #155724; }
+    .message.error   { color: #721c24; }
+</style>
+</head>
+
+<body>
+
+<div class="register-box">
+
+<h1>Create Account</h1>
+<div class="subtitle">Interior Design Failure Prediction System</div>
+
+<form method="POST" action="{% url 'register' %}">
+{% csrf_token %}
+
+<input type="text" name="full_name" placeholder="Full Name" required>
+<input type="email" name="email" placeholder="Email ID" required>
+<input type="text" name="username" placeholder="Username" required>
+
+<input type="password" name="password" placeholder="Password" required>
+
+<span class="rules-link" onclick="openPopup()">View Password Rules</span>
+
+<input type="password" name="confirm_password" placeholder="Confirm Password" required>
+
+<select name="home_type" required>
+    <option value="">Select Home Type</option>
+    <option value="Apartment">Apartment</option>
+    <option value="Villa">Villa</option>
+    <option value="Duplex">Duplex</option>
+    <option value="Studio">Studio</option>
+</select>
+
+<select name="role" required>
+    <option value="">Select Role</option>
+    <option value="Analyst">Interior Analyst</option>
+    <option value="Designer">Interior Designer</option>
+    <option value="Owner">House Owner</option>
+</select>
+
+<button type="submit">Register</button>
+
+</form>
+
+<div class="login-link">
+Already have an account?
+<a href="{% url 'login_view' %}">Login</a>
+</div>
+<!-- Messages -->
+{% if messages %}
+    {% for message in messages %}
+       <div class="message {% if 'success' in message.tags %}success{% else %}error{% endif %}">
+    {{ message }}
+</div>
+
+    {% endfor %}
+{% endif %}
+
+</div>
+
+<!-- Password Rules Popup -->
+<div class="overlay" id="popup">
+    <div class="popup-card">
+        <h3 style="color:#544738; text-align:center;">
+            Strong Password Requirements
+        </h3>
+
+        <ul>
+            <li>Minimum 8 characters</li>
+            <li>At least one uppercase letter (A-Z)</li>
+            <li>At least one lowercase letter (a-z)</li>
+            <li>At least one number (0-9)</li>
+            <li>At least one special character (!@#$%^&*)</li>
+        </ul>
+
+        <button class="close-btn" onclick="closePopup()">Close</button>
+    </div>
+</div>
+
+
+<script>
+
+const password = document.getElementById("password");
+const strengthBar = document.getElementById("strengthBar");
+
+password.addEventListener("input", function() {
+    const val = password.value;
+    let strength = 0;
+
+    const checks = {
+        length: val.length >= 8,
+        uppercase: /[A-Z]/.test(val),
+        lowercase: /[a-z]/.test(val),
+        number: /[0-9]/.test(val),
+        special: /[^A-Za-z0-9]/.test(val)
+    };
+
+    for (let key in checks) {
+        const element = document.getElementById(key);
+        if (checks[key]) {
+            element.classList.remove("invalid");
+            element.classList.add("valid");
+            strength++;
+        } else {
+            element.classList.remove("valid");
+            element.classList.add("invalid");
+        }
+    }
+
+    if (strength <= 2) {
+        strengthBar.style.width = "30%";
+        strengthBar.style.background = "#721c24";
+    } else if (strength <= 4) {
+        strengthBar.style.width = "65%";
+        strengthBar.style.background = "#b08968";
+    } else {
+        strengthBar.style.width = "100%";
+        strengthBar.style.background = "green";
+    }
+});
+function openPopup() {
+    document.getElementById("popup").style.display = "flex";
+}
+
+function closePopup() {
+    document.getElementById("popup").style.display = "none";
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,233 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+<head>
+<meta charset="UTF-8">
+<title>Prediction History</title>
+ <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background-image: url("https://i.pinimg.com/736x/cc/5f/fb/cc5ffbe969db5d627a29027fac212fe3.jpg");
+            background-size: cover;
+            background-position: center;
+            filter: blur(3px) brightness(0.65);
+            transform: scale(1.08);
+            z-index: -1;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: linear-gradient(135deg, #544738, #fff5eb);
+            color: #fff5eb;
+            padding: 18px 35px;
+            font-size: 22px;
+            font-weight: 700;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .navbar .logo {
+            width: 70px;
+            position: absolute;
+            right: 20px;
+            top: -1px;
+        }
+
+        /* Layout */
+        .container {
+            display: flex;
+            height: calc(100vh - 70px);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 230px;
+            background: linear-gradient(180deg, #544738, #554b40);
+            padding-top: 25px;
+            box-shadow: 3px 0 15px rgba(0,0,0,0.15);
+        }
+
+        .sidebar a {
+            display: block;
+            padding: 14px 22px;
+            color: #f1f1f1;
+            text-decoration: none;
+            font-size: 16px;
+            margin: 6px 12px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar a:hover {
+            background: rgba(255, 255, 255, 0.18);
+            transform: translateX(5px);
+        }
+
+        /* Main Content */
+        .content {
+            flex: 1;
+            padding: 35px;
+            overflow-y: auto;
+        }
+
+        h2 {
+            color: #fff5eb;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* Table Box */
+        .history-box {
+            background: linear-gradient(135deg, #ffffff, #fff5eb);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            animation: fadeIn 0.7s ease-in-out;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th, td {
+            padding: 14px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background: #544738;
+            color: white;
+        }
+
+        tr:hover {
+            background: rgba(84, 71, 56, 0.08);
+        }
+
+        .safe {
+            color: green;
+            font-weight: bold;
+        }
+
+        .fail {
+            color: red;
+            font-weight: bold;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(18px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 18px;
+            background: black;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+
+        .back-btn:hover {
+            opacity: 0.8;
+        }
+        tr:hover {
+    cursor: pointer;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+    <img src="{% static 'images/Smart home logo(png).png' %}" class="logo">
+    Interior Design Prediction History
+</div>
+
+<div class="container">
+
+<div class="sidebar">
+    <a href="{% url 'home' %}">Home</a>
+    <a href="{% url 'profile' %}">Your Profile</a>
+    <a href="{% url 'dashboard' %}">Dashboard</a>
+    <a href="{% url 'logout' %}">Logout</a>
+    <a href="{%url 'design'%}">Our Designs</a>
+</div>
+
+<div class="content">
+<h2>My Prediction History</h2>
+
+<div class="history-box">
+
+{% if predictions %}
+<table>
+<tr>
+    <th>Date & Time</th>
+    <th>Room</th>
+    <th>Material</th>
+    <th>Lighting</th>
+    <th>Result</th>
+</tr>
+
+{% for p in predictions %}
+<tr data-url="{% url 'prediction_detail' p.id %}" class="clickable-row">
+
+    <td>
+            {{ p.predicted_at|date:"d M Y, h:i A" }}
+    </td>
+    <td>{{ p.room_type|title }}</td>
+<td>{{ p.material_type|title }}</td>
+<td>{{ p.lighting|title }}</td>
+
+    {% if p.predicted_failure %}
+        <td class="fail">Failure Risk</td>
+    {% else %}
+        <td class="safe">Safe Design</td>
+    {% endif %}
+</tr>
+{% endfor %}
+
+</table>
+
+{% else %}
+<p style="text-align:center;">No predictions yet.</p>
+{% endif %}
+
+</div>
+</div>
+</div>
+<script>
+document.querySelectorAll(".clickable-row").forEach(function(row) {
+    row.addEventListener("click", function() {
+        window.location.href = this.dataset.url;
+    });
+});
+</script>
+
+</body>
+</html>

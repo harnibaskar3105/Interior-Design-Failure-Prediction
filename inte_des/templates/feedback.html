@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+<meta charset="UTF-8">
+<title>Feedback | Interior Design Prediction</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image: url("https://i.pinimg.com/736x/cc/5f/fb/cc5ffbe969db5d627a29027fac212fe3.jpg");
+    background-size: cover;
+    background-position: center;
+    filter: blur(4px) brightness(0.8);
+    transform: scale(1.08);
+    z-index: -1;
+}
+
+.container {
+    width: 450px;
+    background: linear-gradient(135deg, #ffffff, #fff5eb);
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+}
+
+h2 {
+    color: #544738;
+    margin-bottom: 25px;
+}
+
+/* Stars */
+.stars {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    font-size: 32px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.star {
+    color: #ccc;
+    transition: 0.3s;
+}
+
+.star.active {
+    color: gold;
+    transform: scale(1.2);
+}
+
+/* Textarea */
+textarea {
+    width: 95%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #aaa;
+    resize: none;
+    font-family: inherit;
+}
+
+/* Button */
+button {
+    margin-top: 25px;
+    padding: 12px 28px;
+    border-radius: 30px;
+    background-color: #544738;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 18px rgba(0,0,0,0.25);
+}
+
+button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 22px rgba(0,0,0,0.25);
+}
+.msg {
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 600;
+}
+
+.msg.error {
+    color: #b30000;
+}
+
+.msg.success {
+    color: #006622;
+}
+
+.msg.info {
+    color: #006622;
+}
+.reset-btn {
+    margin-top: 25px;
+    padding: 12px 28px;
+    border-radius: 30px;
+    background-color: #544738;   /* lighter brown shade */
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    margin-left: 15px;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+}
+
+.reset-btn:hover {   /* main brown */
+    transform: translateY(-3px);
+    box-shadow: 0 12px 22px rgba(0,0,0,0.25);
+}
+
+
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>Give Your Feedback</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <!-- Hidden rating -->
+        <input type="hidden" name="rating" id="rating">
+
+        <div class="stars">
+            <span class="star" data-value="1">&#9733;</span>
+            <span class="star" data-value="2">&#9733;</span>
+            <span class="star" data-value="3">&#9733;</span>
+            <span class="star" data-value="4">&#9733;</span>
+            <span class="star" data-value="5">&#9733;</span>
+        </div>
+
+        <textarea name="message" rows="4" placeholder="Share your experience..."></textarea>
+
+        <button type="submit" onclick="location.href='/home'">Submit Feedback</button>
+        <button type="reset" class="reset-btn">Reset</button>
+
+    </form>
+    {% if messages %}
+    {% for message in messages %}
+        <div class="msg {{ message.tags }}">
+            {{ message }}
+        </div>
+
+        {% if message.tags == "success" %}
+            {% if show_home %}
+    <a href="{% url 'home' %}">
+        <button type="button">Go to Home</button>
+    </a>
+{% endif %}
+
+        {% endif %}
+
+    {% endfor %}
+{% endif %}
+
+
+</div>
+
+<script>
+const stars = document.querySelectorAll(".star");
+const ratingInput = document.getElementById("rating");
+
+stars.forEach(star => {
+    star.addEventListener("click", function() {
+        const value = this.getAttribute("data-value");
+        ratingInput.value = value;
+
+        stars.forEach(s => s.classList.remove("active"));
+
+        for (let i = 0; i < value; i++) {
+            stars[i].classList.add("active");
+        }
+    });
+});
+const form = document.querySelector("form");
+
+form.addEventListener("reset", function() {
+    document.getElementById("rating").value = "";
+
+    document.querySelectorAll(".star").forEach(star => {
+        star.classList.remove("active");
+    });
+});
+
+</script>
+
+</body>
+</html>

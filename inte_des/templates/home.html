@@ -1,0 +1,322 @@
+
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>Home | Interior Design Failure Prediction</title>
+    <style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        font-family: "Segoe UI", Arial, sans-serif;
+        color: #333;
+        height: 100vh;
+        overflow: hidden;   /* No scrolling */
+        display: flex;
+        flex-direction: column;
+    }
+
+    body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image: url("https://i.pinimg.com/736x/cc/5f/fb/cc5ffbe969db5d627a29027fac212fe3.jpg");
+        background-size: cover;
+        background-position: center;
+        filter: blur(4px) brightness(0.85);
+        transform: scale(1.08);
+        z-index: -1;
+    }
+
+    /* Header */
+    header {
+        background:  #fff5eb ;
+        color: #544738;
+        padding: 28px 15px;
+        text-align: center;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+        backdrop-filter: blur(6px);
+    }
+    header .logo{
+        width: 150px;
+        position: absolute;
+        right: 20px;
+        top: -1px;
+    }
+
+    header h1 {
+        margin-bottom: 6px;
+        letter-spacing: 0.6px;
+        font-size: 30px;
+    }
+
+    header p {
+        margin: 0;
+        font-size: 14px;
+        opacity: 0.85;
+    }
+
+    /* Navigation */
+    nav {
+        background: linear-gradient(135deg, #544738, #554b40);
+        padding: 14px;
+        text-align: center;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    nav a {
+        color: white;
+        margin: 0 22px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 16px;
+        position: relative;
+        transition: opacity 0.3s ease;
+    }
+
+    nav a:hover {
+        opacity: 0.9;
+    }
+
+    nav a::after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 2px;
+        background: white;
+        left: 0;
+        bottom: -5px;
+        transition: width 0.3s ease;
+    }
+
+    nav a:hover::after {
+        width: 100%;
+    }
+
+    /* Content */
+   .container {
+    flex: 1; /* Takes remaining height between header and footer */
+    padding: 40px 70px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+    align-content: center; /* Vertically center cards */
+}
+
+    .card {
+        background: linear-gradient(180deg, #ffffff, #d0c7bc);
+        padding: 22px 26px;
+        border-radius: 18px;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+        animation: fadeIn 0.7s ease-in-out;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 22px 45px rgba(0,0,0,0.25);
+    }
+
+
+    @media (max-width: 768px) {
+        .container {
+            padding: 35px 25px;
+        }
+        .container .card {
+            width: 100% !important;
+        }
+    }
+
+    .card h3 {
+        color: #544738;
+        margin-bottom: 12px;
+        font-size: 20px;
+        text-align: center;
+    }
+
+    .card p, 
+    .card li {
+        font-size: 15px;
+        line-height: 1.7;
+        color: #444;
+        text-align: center;
+    }
+
+    .card ul {
+        list-style: none;
+        padding-left: 0;
+    }
+
+    /* Button */
+    button {
+        padding: 14px 32px;
+        background: linear-gradient(135deg, #544738, #554b40);
+        color: white;
+        border: none;
+        border-radius: 30px;
+        cursor: pointer;
+        font-size: 15px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 22px rgba(0,0,0,0.3);
+        align-items: center;
+    }
+    .card a {
+    align-self: center;
+    margin-top: 15px;
+}
+
+    button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 16px 32px rgba(0,0,0,0.35);
+        opacity: 1;
+    }
+
+    /* Footer */
+    footer {
+        background: linear-gradient(135deg, #544738, #554b40);
+        color: white;
+        text-align: center;
+        padding: 8px;
+        width: 100%;
+        font-size: 14px;
+        box-shadow: 0 -4px 12px rgba(0,0,0,0.25);
+        padding: 10px;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(18px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+.ad-banner {
+    background: #d0c1b1;
+    padding: 12px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.ad-banner a {
+    color: #fff5eb;
+    font-size: 16px;
+    font-weight: 700;
+    text-decoration: none;
+    animation: blink 1.2s infinite;
+}
+
+/* Blinking animation */
+@keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0.2; }
+    100% { opacity: 1; }
+}
+
+.ad-banner a:hover {
+    animation: none;
+    text-decoration: underline;
+}
+
+
+</style>
+</head>
+
+<body>
+
+<header>
+    <img src="{% static 'images/Smart home logo(png).png' %}"
+         alt="Smart Home Logo"
+         class="logo">
+
+    <div class="header-text">
+        <h1>Interior Design Failure Prediction</h1>
+        <p>AI-Based Smart Home Decision System</p>
+    </div>
+</header>
+
+
+<nav>
+    <a href="{%url 'dashboard'%}">Dashboard</a>
+    <a href="{%url 'profile'%}">Your Profile</a>
+    <a href="{%url 'about'%}">About us</a>
+    <a href="{% url 'logout' %}">Logout</a>
+</nav>
+
+<div class="container">
+
+   <div class="card">
+    <h3>Project Overview</h3>
+    <p>
+        This system evaluates interior design parameters to identify potential
+        design failures in smart homes. It analyzes factors such as room type,
+        material selection, lighting conditions, and space configuration to
+        detect issues like improper layout planning, poor illumination,
+        and reduced energy efficiency.
+    </p>
+</div>
+
+<div class="card">
+    <h3>Key Features</h3>
+    <ul>
+        <li>Design failure prediction based on predefined rules and logic.</li>
+        <li>Analysis of lighting conditions and space utilization.</li>
+        <li>Evaluation of material selection and functional efficiency.</li>
+        <li>Simple and user-friendly interface for easy interaction.</li>
+    </ul>
+</div>
+
+   <div class="card"> 
+    <h3>Get Started</h3>
+    <p>
+        Begin your interior design evaluation by entering key parameters
+        such as room type, material selection, lighting conditions,
+        and spatial configuration.
+    </p>
+
+    <p>
+        The system analyzes these inputs based on predefined logic
+        to identify potential design issues, improve space utilization,
+        and enhance overall functionality.
+    </p>
+
+    <a href="{% url 'predict' %}">
+        <button type="button">Start Prediction</button>
+    </a>
+</div>
+
+<div class="card">
+    <h3>Our Interior Designs</h3>
+    <p>
+        Looking for professional interior designs?
+        Explore our curated smart home concepts and transform your living space.
+    </p>
+    <p>
+        📞 +91 7899023615 <br>
+        ✉ smarthomeinteriordesignproject@gmail.com
+    </p>
+
+    <a href="{% url 'design' %}">
+        <button type="button">View Designs</button>
+    </a>
+</div>
+
+</div>
+
+<footer>
+    © 2026 Interior Design Failure Prediction | Smart Home Project
+</footer>
+
+</body>
+</html>

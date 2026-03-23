@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<title>Predict | Interior Design Failure Prediction</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    height: 100vh;
+    overflow: hidden;
+    background: linear-gradient(135deg, #eef1ff, #f7f9ff);
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image: url("https://i.pinimg.com/736x/cc/5f/fb/cc5ffbe969db5d627a29027fac212fe3.jpg");
+    background-size: cover;
+    background-position: center;
+    filter: blur(3px) brightness(0.65);
+    transform: scale(1.08);
+    z-index: -1;
+}
+
+/* Navbar */
+.navbar {
+    background: linear-gradient(135deg, #544738, #fff5eb);
+    color: #fff5eb;
+    padding: 18px 35px;
+    font-size: 22px;
+    font-weight: 700;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    position: relative;
+}
+
+.navbar .logo {
+    width: 70px;
+    position: absolute;
+    right: 20px;
+    top: -1px;
+}
+
+/* Layout */
+.container {
+    display: flex;
+    height: calc(100vh - 70px);
+}
+
+/* Sidebar */
+.sidebar {
+    width: 230px;
+    background: linear-gradient(180deg, #544738, #554b40);
+    padding-top: 25px;
+    box-shadow: 3px 0 18px rgba(0,0,0,0.15);
+}
+
+.sidebar a {
+    display: block;
+    padding: 14px 22px;
+    color: #f1f1f1;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 6px 12px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.sidebar a:hover {
+    background: rgba(255,255,255,0.18);
+    transform: translateX(6px);
+}
+
+/* Main Content */
+.content {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+}
+
+/* Main Card */
+.main-box {
+    width: 70%;
+    background: linear-gradient(135deg, #ffffff, #d0c7bc);
+    border-radius: 20px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+    padding: 40px;
+    animation: fadeIn 0.7s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.main-box h2 {
+    text-align: center;
+    color: #544738;
+    margin-bottom: 25px;
+}
+
+/* Form Elements */
+input, select, textarea {
+    width: 100%;
+    padding: 12px 14px;
+    margin: 12px 0;
+    border-radius: 10px;
+    border: 1px solid #d0c7bc;
+    font-size: 15px;
+    transition: all 0.3s ease;
+    background: transparent;
+}
+
+textarea {
+    resize: none;
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: #6f6962;
+    box-shadow: 0 0 0 3px #ab9c8c;
+}
+label{
+    display: block;
+    margin-bottom: 6px;
+    font-size: 13px;
+    color: #544738;
+    font-weight: 600;
+}
+
+/* Button */
+button {
+    width: 50%;
+    padding: 12px;
+    margin: 25px auto 0;
+    display: block;
+    border-radius: 30px;
+    background: linear-gradient(135deg, #544738, #554b40);
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 18px rgba(0,0,0,0.2);
+}
+
+button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.25);
+}
+.select-box:invalid {
+    color: #888;
+}
+
+.select-box option {
+    color: #000;
+}
+</style>
+</head>
+
+<body>
+
+
+<!-- Navbar -->
+<div class="navbar">
+    <img src="/static/images/Smart home logo(png).png"
+         alt="Smart Home Logo"
+         class="logo">
+    Interior Design Failure Prediction
+</div>
+
+<div class="container">
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <a href="/dashboard">Dashboard</a>
+        <a href="/home">Home</a>
+        <a href="/logout">Logout</a>
+        <a href="/design">Our Designs</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content">
+        <div class="main-box">
+
+           <h2>Predict Interior Design Failure</h2>
+
+           <!-- Form -->
+           <form method="POST" action="{% url 'predict' %}">
+               {% csrf_token %}
+
+               <label for="budget">Budget (in ₹):</label>
+               <input type="number" name="budget" required>
+
+               <label for="room_size">Room Size:</label>
+               <select name="room_size" required class="select-box">
+                 <option value="" disabled selected>Select Room Size</option>
+                 <option value="small">Small</option>
+                 <option value="medium">Medium</option>
+                 <option value="large">Large</option>
+               </select>
+
+               <label for="material">Material:</label>
+               <select name="material" required class="select-box">
+                   <option value="" disabled selected>Select Material</option>
+                   <option value="wood">Wood</option>
+                   <option value="pvc">PVC</option>
+                   <option value="marble">Marble</option>
+               </select>
+
+               <label for="lighting">Lighting:</label>
+               <select name="lighting" required class="select-box">
+    <option value="" disabled selected>Select Lighting</option>
+    <option value="low">Low</option>
+    <option value="medium">Medium</option>
+    <option value="high">High</option>
+</select>
+
+               <button type="submit">Predict Failure</button>
+           </form>
+{% if messages %}
+  <div class="msg-box">
+    {% for message in messages %}
+      <p class="{{ message.tags }}" style="text-align: center;color: #155724;">{{ message }}</p>
+    {% endfor %}
+  </div>
+{% endif %}
+        </div>
+        
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: Helvetica;
+            font-size: 12px;
+            color: #333;
+            background-color: #d0c7bc;
+            padding: 20px;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .logo {
+            width: 70px;
+            margin-right: 15px;
+        }
+
+        h1 {
+            color: #544738;
+            margin: 0;
+        }
+
+        .box {
+            border: 1px solid #999;
+            background: #ffffff;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        ul {
+            margin: 5px 0 0 15px;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 4px;
+        }
+
+        .footer {
+            text-align: center;
+            font-size: 11px;
+            margin-top: 20px;
+            color: #444;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- HEADER WITH LOGO -->
+<div class="header">
+    <img src="{{ STATIC_ROOT }}/images/Smart home logo(png).png" class="logo">
+    <h1>Interior Design Failure Prediction Report</h1>
+</div>
+
+<div class="box">
+    <b>User:</b> {{ user.username }}<br>
+    <b>Date:</b> {{ prediction.predicted_at|date:"d M Y, h:i A" }}
+</div>
+
+<div class="box">
+    <b>Prediction Result:</b><br>
+    {% if prediction.predicted_failure %}
+        HIGH RISK: Interior Design May Fail
+    {% else %}
+        LOW RISK: Interior Design Looks Safe
+    {% endif %}
+</div>
+
+<div class="box">
+    <b>Risk Score:</b> {{ prediction.probability }} %
+</div>
+
+<div class="box">
+    <b>Failure Reasons & Suggested Improvements:</b>
+    <ul>
+        {% for line in prediction.recommendations.splitlines %}
+            <li>{{ line|safe }}</li>
+        {% endfor %}
+    </ul>
+</div>
+
+<div class="footer">
+    © 2026 Interior Design Failure Prediction
+</div>
+
+</body>
+</html>

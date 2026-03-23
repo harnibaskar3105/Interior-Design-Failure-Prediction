@@ -1,0 +1,561 @@
+3rd years : 
+
+Python : 
+1. Odd or Even - 
+# Find the error and fix it
+def check_even_odd(n):
+    if n % 2 == 0
+        return "Even"
+    else:
+        return "Odd"
+
+print(check_even_odd(4)
+
+Correct code - 
+# Find the error and fix it
+def check_even_odd(n):
+    if n % 2 == 0:
+        return "Even"
+    else:
+        return "Odd"
+
+print(check_even_odd(4))
+
+2. Printing String - 
+# Find and fix the bug
+text = "hello";
+
+for i in range(len(text)):
+    text[i] = text[i],upper()
+
+print(text)
+
+Correct code - 
+text = "hello"
+temp="";
+
+for i in range(len(text)):
+    temp = text.upper()
+
+print(temp)
+
+PHP :
+
+1. If else condition - 
+<html>
+<body>
+<?php
+age = 18;
+
+if(age == 18) {
+    echo "Eligible to vote";
+} else {
+    echo "Not eligible"
+}
+?>
+</body>
+</html>
+
+Correct code - 
+<html>
+<body>
+<?php
+$age = 18;
+
+if($age == 18) {
+    echo "Eligible to vote";
+} else {
+    echo "Not eligible";
+}
+?>
+</body>
+</html>
+
+2. Factorial - 
+<html>
+<body>
+<?php
+function factorial($n) {
+    if($n == 0) {
+        return 0;
+    } else {
+        return $n * factorial($n - 1);
+    }
+}
+
+echo factorial(5);
+?>
+</body>
+</html>
+
+Correct code -
+<html>
+<body>
+<?php
+function factorial($n) {
+    if($n == 1) {
+        return 1;
+    } else {
+        return $n * factorial($n - 1);
+    }
+}
+
+echo factorial(5);
+?>
+</body>
+</html>
+
+
+HTML : 
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Debug Form</title>
+    <script>
+        function validate() {
+            var name = document.getElementById("name").value;
+
+            if(name = "") {
+                alert("Name cannot be empty");
+                return false;
+            }
+            message("Form submitted successfully!");
+            return true;
+        }
+    </script>
+</head>
+<body>
+
+<form onsubmit="return validate()">
+    <input type="text" id="name">
+    <button type="submit">Submit</button>
+</form>
+
+</body>
+</html>
+
+Correct code - 
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Debug Form</title>
+    <script>
+        function validate() {
+            var name = document.getElementById("name").value;
+
+            if(name == "") {
+                alert("Name cannot be empty");
+                return false;
+            }
+            alert("Form submitted successfully!");
+            return true;
+        }
+    </script>
+</head>
+<body>
+
+<form onsubmit="return validate()">
+    <input type="text" id="name">
+    <button type="submit">Submit</button>
+</form>
+
+</body>
+</html>
+
++--------------------------------------------------------------------------+
+2nd Years : 
+
+Java :
+1. Print numbers from 1 to 5 -
+// Find and fix the bug
+
+public class Demo {
+    public static void main(String[] args) {
+        for(int i = 1; i < 5; i++);
+        {
+            System.out.print(i + " ");
+        }
+    }
+}
+
+Correct code - 
+// Find and fix the bug
+
+public class Demo {
+    public static void main(String[] args) {
+        for(int i = 1; i <= 5; i++)
+        {
+            System.out.print(i + " ");
+        }
+    }
+}
+
+2. Sum of 2 numbers - 
+// Find and fix the bug
+
+public class Demo {
+    static int add(int a, int b) {
+        int sum = a + b;
+    }
+
+    public static void main(Strings[] args) {
+        System.out.println(add(3, 4);
+    }
+}
+
+Correct code - 
+// Find and fix the bug
+
+public class Demo {
+    static int add(int a, int b) {
+        int sum;
+        return sum = a + b;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(add(3, 4));
+    }
+}
+
+DBMS : 
+1. Selecting not null - 
+CREATE TABLE students (
+    id INT,
+    name VARCHAR(50),
+    marks INT,
+);
+
+INSERT INTO students VALUE(1, 'Aman', 85);
+INSERT INTO students VALUE(2, 'Riya', NULL);
+INSERT INTO students VALUE(3, 'John', 70);
+
+SELECT name *FROM students WHERE marks IS NOT NULL;
+
+Correct code - 
+CREATE TABLE students (
+    id INT,
+    name VARCHAR(50),
+    marks INT
+);
+
+INSERT INTO students VALUES(1, 'Aman', 85);
+INSERT INTO students VALUES(2, 'Riya', NULL);
+INSERT INTO students VALUES(3, 'John', 70);
+
+SELECT name FROM students WHERE marks IS NOT NULL;
+
+2. Selecting Sum of Salary -
+CREATE TABLE employees (
+    id INT,
+    name VARCHAR(50),
+    dept VARCHAR(50),
+    salary INT
+);
+
+INSERT INTO employee VALUES(1, 'A', 'IT', 5000);
+INSERT INTO employee VALUES(2, 'B', 'HR', 4000);
+INSERT INTO employee VALUES(3, 'C', 'IT', 6000);
+INSERT INTO employee VALUES(4, 'D', 'HR', 4500);
+
+SELECT dept, SUM(salary) FROM employees WHERE dept;
+
+Correct code - 
+CREATE TABLE employees (
+    id INT,
+    name VARCHAR(50),
+    dept VARCHAR(50),
+    salary INT
+);
+
+INSERT INTO employees VALUES(1, 'A', 'IT', 5000);
+INSERT INTO employees VALUES(2, 'B', 'HR', 4000);
+INSERT INTO employees VALUES(3, 'C', 'IT', 6000);
+INSERT INTO employees VALUES(4, 'D', 'HR', 4500);
+
+SELECT dept, SUM(salary) FROM employees GROUP BY dept;
+
+Shell : 
+1. Leap Year - 
+
+
+#!/bin/bash
+
+echo "Enter year:"
+read year
+
+if [ $year % 4 -eq 0 ]
+then
+    if [ $year % 100 -eq 0 ]
+    then
+        if [ $year % 400 -eq 0 ]
+        then
+            echo "Leap year"
+        else
+            echo "Not a leap year"
+        fi
+    else
+        echo "Leap year"
+    fi
+else
+    echo "Not a leap year"
+fi
+
+Correct code - 
+#!/bin/bash
+
+echo "Enter year:"
+read year
+
+if (( year % 4 == 0 ))
+then
+    if (( year % 100 == 0 ))
+    then
+        if (( year % 400 == 0 ))
+        then
+            echo "Leap year"
+        else
+            echo "Not a leap year"
+        fi
+    else
+        echo "Leap year"
+    fi
+else
+    echo "Not a leap year"
+fi
+
++--------------------------------------------------------------------------+
+1st years : 
+
+C language : 
+1. If condition - 
+#include <stdio.h>
+
+int main() {
+    int num = 5;
+
+    if(num = 10) {
+        print("Equal to 10");
+    } else {
+        print("Not equal");
+    }
+
+    return;
+}
+
+Correct code - 
+#include <stdio.h>
+
+int main() {
+    int num = 5;
+
+    if(num == 10) {
+        printf("Equal to 10");
+    } else {
+        printf("Not equal");
+    }
+
+    return 0;
+}
+
+2.Swapping 2 numbers - 
+#include <stdio.h>
+
+void swap(int a, int b) {
+    int temp = a;
+    a = b;
+    b = temp;
+}
+
+int main() {
+    int x = 5, y = 10;
+
+    swap(x, y);
+
+    printf("%d %d", x, y);
+
+    return 0;
+}
+
+Correct code - 
+#include <stdio.h>
+
+void swap(int a, int b) {
+    int temp = a;
+    a = b;
+    b = temp;
+    printf("%d %d",a,b);
+}
+
+int main() {
+    int x = 5, y = 10;
+
+    swap(x,y);
+
+    return 0;
+}
+
+3. Vowels count - 
+#include <stdio.h>
+
+int main() {
+    char str[]="hello";
+    int i, count;
+
+    for(i = 0; str[i] != '\0'; i++);
+    {
+        if(str[i] == 'a' || str[i] == 'e' || str[i] == 'i' || 
+           str[i] == 'o' || str[i] == 'u') {
+            count+;
+        }
+    }
+
+    printf("Vowels = %d", count);
+
+    return 0;
+}
+
+Correct code - 
+#include <stdio.h>
+
+int main() {
+    char str[]="hello";
+    int i, count=0;
+
+    for(i = 0; str[i] != '\0'; i++)
+    {
+        if(str[i] == 'a' || str[i] == 'e' || str[i] == 'i' || 
+           str[i] == 'o' || str[i] == 'u') {
+            count++;
+        }
+    }
+
+    printf("Vowels = %d", count);
+
+    return 0;
+}
+
+
+
+4. Switch case statement - 
+#include <stdio.h>
+
+int main() {
+    int choice;
+    float a, b, result;
+
+    printf("1 - Add\n2 - Subtract\n");
+    printf("Enter your choice: ");
+    scanf("%d", choice);
+
+    printf("Enter two numbers: ");
+    scanf("%d %d", &a, &b);
+
+    switch(choice) {
+        case 1:
+            result = a + b;
+        case 2:
+            result = a - b;
+        default:
+            printf("Invalid choice");
+    }
+
+    printf("\nResult = %d", result);
+
+    return 0;
+}
+
+Correct code - 
+#include <stdio.h>
+
+int main() {
+    int choice;
+    int a, b, result;
+
+    printf("1 - Add\n2 - Subtract\n");
+    printf("Enter your choice: ");
+    scanf("%d", &choice);
+
+    printf("Enter two numbers: ");
+    scanf("%d %d", &a, &b);
+
+    switch(choice) {
+        case 1:
+            result = a + b;
+            break;
+        case 2:
+            result = a - b;
+            break;
+        default:
+            printf("Invalid choice");
+    }
+
+    printf("\nResult = %d", result);
+
+    return 0;
+}
+
+
+5. Student Marks -
+#include <stdio.h>
+
+int main() {
+    int n = 5;
+    int marks[4], i;
+    int total = 0;
+    int avg;
+
+    printf("Enter 5 marks:\n");
+
+    for(i = 0; i < n; i++) {
+        scanf("%d", &marks[i];
+    }
+
+    for(i = 0; i < n; i++) {
+        total = total + marks[i]
+    }
+
+    avg = (float)total / n;
+
+    printf("Total = %d\n", total);
+    printf("Average = %.2f\n", avg);
+
+    if(avg >= 50)
+        printf("Fail\n");
+    else
+        printf("Pass\n");
+
+    return 0;
+}
+
+Correct code -
+#include <stdio.h>
+
+int main() {
+    int n = 5;
+    int marks[5], i;
+    int total = 0;
+    float avg;
+
+    printf("Enter 5 marks:\n");
+
+    for(i = 0; i < n; i++) {
+        scanf("%d", &marks[i]);
+    }
+
+    for(i = 0; i < n; i++) {
+        total = total + marks[i];
+    }
+
+    avg = (float)total / n;
+
+    printf("Total = %d\n", total);
+    printf("Average = %.2f\n", avg);
+
+    if(avg >= 50)
+        printf("Pass\n");
+    else
+        printf("Fail\n");
+
+    return 0;
+}

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Prediction Result | Interior Design Failure Prediction</title>
+
+<style>
+body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image: url("https://i.pinimg.com/736x/cc/5f/fb/cc5ffbe969db5d627a29027fac212fe3.jpg");
+    background-size: cover;
+    background-position: center;
+    filter: blur(4px) brightness(0.85);
+    transform: scale(1.08);
+    z-index: -1;
+}
+
+.container {
+    max-width: 700px;
+    width: 90%;
+    background: linear-gradient(135deg, #ffffff, #d0c7bc);
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+    text-align: center;
+}
+
+/* Risk heading */
+.high {
+    color: #b22222;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.low {
+    color: #228b22;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+/* Probability */
+.probability {
+    font-size: 14px;
+    font-weight: 500;
+    opacity: 0.85;
+    margin-bottom: 25px;
+}
+
+.probability.high {
+    color: #b22222;
+}
+
+.probability.low {
+    color: #228b22;
+}
+
+/* Recommendations */
+.recommendation {
+    text-align: center;
+    margin: 10px 0;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+/* Buttons */
+.btn {
+    margin-top: 35px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.btn a {
+    text-decoration: none;
+}
+
+.btn button {
+    padding: 14px 28px;
+    border-radius: 35px;
+    background-color: #544738;
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 22px rgba(0,0,0,0.25);
+}
+
+.btn button:hover {
+    transform: translateY(-3px);
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- RESULT TEXT -->
+   <h2 class="
+    {% if from_history %}
+        {% if prediction.predicted_failure %}high{% else %}low{% endif %}
+    {% else %}
+        {% if 'HIGH' in result %}high{% else %}low{% endif %}
+    {% endif %}
+">
+    {{ result }}
+</h2>
+
+
+    <!-- PROBABILITY -->
+{% if from_history %}
+    <p class="probability {% if prediction.predicted_failure %}high{% else %}low{% endif %}">
+        Risk Probability: {{ prediction.probability }}%
+    </p>
+{% elif probability %}
+    <p class="probability {% if result == 'HIGH RISK: Interior Design May Fail' %}high{% else %}low{% endif %}">
+        Risk Probability: {{ probability }}%
+    </p>
+{% endif %}
+
+
+<!-- RECOMMENDATIONS -->
+<h3 style="text-align:center;">Recommendations</h3>
+
+{% if from_history %}
+    <div class="recommendation">
+        {{ prediction.recommendations|safe|linebreaks }}
+    </div>
+{% elif recommendations %}
+    {% for rec in recommendations %}
+        <div class="recommendation">{{ rec|safe }}</div>
+    {% endfor %}
+{% endif %}
+
+
+    <!-- BUTTONS -->
+    <div class="btn">
+
+    {% if from_history %}
+        <a href="{% url 'history' %}">
+            <button>Back to History</button>
+        </a>
+    {% else %}
+        <a href="{% url 'predict' %}">
+            <button>New Prediction</button>
+        </a>
+    {% endif %}
+
+    <a href="{% url 'feedback' %}">
+        <button>Give Feedback</button>
+    </a>
+
+
+    <a href="{% url 'home' %}">
+        <button>Home</button>
+    </a>
+    
+    {% if prediction and prediction.id %}
+<a href="{% url 'download_prediction_pdf' prediction.id %}">
+    <button>Download PDF</button>
+</a>
+{% endif %}
+
+
+
+</div>
+
+</div>
+
+</body>
+</html>

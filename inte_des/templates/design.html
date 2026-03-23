@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+<meta charset="UTF-8">
+<title>Our Designs | Interior Design Failure Prediction</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    color: #333;
+    height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Background */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image: url("https://i.pinimg.com/736x/cc/5f/fb/cc5ffbe969db5d627a29027fac212fe3.jpg");
+    background-size: cover;
+    background-position: center;
+    filter: blur(4px) brightness(0.85);
+    transform: scale(1.08);
+    z-index: -1;
+}
+
+/* Header */
+header {
+    background: #fff5eb;
+    color: #544738;
+    padding: 20px 15px;
+    text-align: center;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+}
+
+header .logo{
+    position: absolute;
+    width: 100px;
+    right: 20px;
+    top: -4px;
+}
+header h1 {
+    margin: 4px 0;
+    font-size: 24px;
+}
+
+header p {
+    margin: 0;
+    font-size: 13px;
+}
+
+
+/* Navigation */
+nav {
+    background: linear-gradient(135deg, #544738, #554b40);
+    padding: 14px;
+    text-align: center;
+}
+
+nav a {
+        color: white;
+        margin: 0 22px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 16px;
+        position: relative;
+        transition: opacity 0.3s ease;
+    }
+
+    nav a:hover {
+        opacity: 0.9;
+    }
+
+    nav a::after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 2px;
+        background: white;
+        left: 0;
+        bottom: -5px;
+        transition: width 0.3s ease;
+    }
+
+    nav a:hover::after {
+        width: 100%;
+    }
+
+/* Page Container */
+.container {
+    padding: 30px 70px;
+}
+
+/* Section Title */
+.page-title {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.page-title h2 {
+    color: #fff5eb;
+    font-size: 28px;
+}
+
+/* Design Cards */
+.design-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 30px;
+}
+
+.design-card {
+    background: linear-gradient(180deg, #ffffff, #d0c7bc);
+    border-radius: 18px;
+    padding: 20px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+    text-align: center;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    animation: fadeIn 0.7s ease-in-out;
+}
+ @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(18px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+.design-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 22px 45px rgba(0,0,0,0.25);
+}
+
+.design-card img {
+    width: 100%;
+    aspect-ratio: 1 / 1;   /* forces perfect square */
+    object-fit: cover;     /* crops image neatly */
+    border-radius: 12px;
+}
+
+
+.design-card h3 {
+    color: #544738;
+    margin: 15px 0 8px;
+}
+
+.price {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+/* Button */
+.buy-btn {
+     padding: 14px 32px;
+        background: linear-gradient(135deg, #544738, #554b40);
+        color: white;
+        border: none;
+        border-radius: 30px;
+        cursor: pointer;
+        font-size: 15px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 22px rgba(0,0,0,0.3);
+}
+
+.buy-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 32px rgba(0,0,0,0.35);
+    opacity: 1;
+}
+
+/* Footer */
+footer {
+    background: linear-gradient(135deg, #544738, #554b40);
+    color: white;
+    text-align: center;
+    padding: 8px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+/* Popup Background */
+.popup-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+/* Popup Card */
+.popup-card {
+    background: linear-gradient(180deg, #ffffff, #d0c7bc);
+    padding: 30px;
+    border-radius: 18px;
+    width: 380px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    animation: fadeUp 0.4s ease;
+    text-align: center;
+}
+
+.close-btn {
+    float: right;
+    cursor: pointer;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+/* Table */
+.material-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+.material-table th,
+.material-table td {
+    padding: 10px;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    text-align: left;
+}
+
+.total-price {
+    margin-top: 15px;
+    margin-bottom: 20px; 
+    font-size: 18px;
+    font-weight: bold;
+    color: #544738;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+    <img src="{% static 'images/Smart home logo(png).png' %}" class="logo">
+    <h1>Interior Designs</h1>
+    <p>Contact for Professional Smart Home Designs</p>
+</header>
+
+<nav>
+    <a href="{% url 'dashboard' %}">Dashboard</a>
+    <a href="{% url 'profile' %}">Your Profile</a>
+    <a href="{% url 'home' %}">Home</a>
+    <a href="{% url 'logout' %}">Logout</a>
+</nav>
+
+<div class="container">
+
+    <div class="page-title">
+        <h2>Available Interior Design Packages</h2>
+    </div>
+
+    <div class="design-grid">
+
+        <div class="design-card">
+            <img src="{% static 'images/design1.jpg' %}">
+            <h3>Modern Smart Living Room</h3>
+            <div class="price">₹ 1,10,000</div>
+            <button class="buy-btn" onclick="openPopup('Modern Smart Living Room')">Details</button>
+        </div>
+
+        <div class="design-card">
+            <img src="{% static 'images/design2.jpg' %}">
+            <h3>Luxury Bedroom Concept</h3>
+            <div class="price">₹ 1,05,000</div>
+            <button class="buy-btn" onclick="openPopup('Luxury Bedroom Concept')">Details</button>
+        </div>
+
+        <div class="design-card">
+            <img src="{% static 'images/design3.jpg' %}">
+            <h3>Minimalist Smart Kitchen</h3>
+            <div class="price">₹ 1,24,000</div>
+            <button class="buy-btn" onclick="openPopup('Minimalist Smart Kitchen')">Details</button>
+        </div>
+        <div class="design-card">
+    <img src="{% static 'images/design4.jpg' %}">
+    <h3>Smart Office Workspace</h3>
+    <div class="price">₹ 71,000</div>
+    <button class="buy-btn" onclick="openPopup('Smart Office Workspace')">Details</button>
+</div>
+
+<div class="design-card">
+    <img src="{% static 'images/design5.jpg' %}">
+    <h3>Luxury Dining Area</h3>
+    <div class="price">₹ 93,000</div>
+    <button class="buy-btn" onclick="openPopup('Luxury Dining Area')">Details</button>
+</div>
+
+<div class="design-card">
+    <img src="{% static 'images/design6.jpg' %}">
+    <h3>Compact Studio Apartment</h3>
+    <div class="price">₹ 1,07,000</div>
+    <button class="buy-btn" onclick="openPopup('Compact Studio Apartment')">Details</button>
+</div>
+
+<div class="design-card">
+    <img src="{% static 'images/design7.jpg' %}">
+    <h3>Balcony Lounge Design</h3>
+    <div class="price">₹ 57,000</div>
+    <button class="buy-btn" onclick="openPopup('Balcony Lounge Design')">Details</button>
+</div>
+
+<div class="design-card">
+    <img src="{% static 'images/design8.jpg' %}">
+    <h3>Modern Bathroom Concept</h3>
+    <div class="price">₹ 1,08,000</div>
+    <button class="buy-btn" onclick="openPopup('Modern Bathroom Concept')">Details</button>
+</div>
+<div class="design-card">
+    <img src="{% static 'images/design9.jpg' %}">
+    <h3>Scandinavian Living Space</h3>
+    <div class="price">₹1,07,000</div>
+    <button class="buy-btn" onclick="openPopup('Scandinavian Living Space')">Details</button>
+</div>
+
+<div class="design-card">
+    <img src="{% static 'images/design10.jpg' %}">
+    <h3>Smart Home Theater Room</h3>
+    <div class="price">₹1,50,000</div>
+    <button class="buy-btn" onclick="openPopup('Smart Home Theater Room')">Details</button>
+</div>
+
+<div class="design-card">
+    <img src="{% static 'images/design11.jpg' %}">
+    <h3>Kids Smart Bedroom</h3>
+    <div class="price">₹1,10,000</div>
+    <button class="buy-btn" onclick="openPopup('Kids Smart Bedroom')">Details</button>
+</div>
+
+<div class="design-card">
+    <img src="{% static 'images/design12.jpg' %}">
+    <h3>Luxury Walk-in Wardrobe</h3>
+    <div class="price">₹1,70,000</div>
+    <button class="buy-btn" onclick="openPopup('Luxury Walk-in Wardrobe')">Details</button>
+</div>
+
+<div class="design-card">
+    <img src="{% static 'images/design13.jpg' %}">
+    <h3>Modern Entryway</h3>
+    <div class="price">₹75,000</div>
+    <button class="buy-btn" onclick="openPopup('Modern Entryway')">Details</button>
+</div>
+
+<div class="design-card">
+    <img src="{% static 'images/design14.jpg' %}">
+    <h3>Eco-Friendly Green Interior</h3>
+    <div class="price">₹2,10,000</div>
+    <button class="buy-btn" onclick="openPopup('Eco-Friendly Green Interior')">Details</button>
+</div>
+
+<div class="design-card">
+    <img src="{% static 'images/design15.jpg' %}">
+    <h3>Premium Guest Master Bedroom</h3>
+    <div class="price">₹1,50,000</div>
+    <button class="buy-btn" onclick="openPopup('Premium Guest Master Bedroom')">Details</button>
+</div>
+
+<div class="design-card">
+    <img src="{% static 'images/design16.jpg' %}">
+    <h3>Compact Study Room</h3>
+    <div class="price">₹1,17,000</div>
+    <button class="buy-btn" onclick="openPopup('Compact Study Room')">Details</button>
+</div>
+
+    </div>
+
+</div>
+
+<footer>
+© 2026 Interior Design Failure Prediction | Smart Home Project
+</footer>
+<!-- Design Popup -->
+<div id="designPopup" class="popup-overlay">
+
+    <div class="popup-card">
+        <span class="close-btn" onclick="closePopup()">×</span>
+
+        <h2 id="designTitle">Design Name</h2>
+
+        <table class="material-table">
+            <thead>
+                <tr>
+                    <th>Material</th>
+                    <th>Cost (₹)</th>
+                </tr>
+            </thead>
+            <tbody id="materialList">
+            </tbody>
+        </table>
+
+        <div class="total-price">
+            Grand Total : ₹ <span id="grandTotal">0</span>
+        </div>
+
+        <button type="button" class="buy-btn" onclick="goToContact()">Contact</button>
+    </div>
+
+</div>
+<script>
+let selectedDesign = "";
+let totalAmount = 0;
+
+const designs = {
+    "Modern Smart Living Room": [
+        { material: "Premium Sofa", cost: 45000 },
+        { material: "LED Ceiling Lighting", cost: 12000 },
+        { material: "Marble Flooring", cost: 35000 },
+        { material: "Smart TV Panel", cost: 18000 }
+    ],
+
+    "Luxury Bedroom Concept": [
+        { material: "King Size Bed", cost: 40000 },
+        { material: "Wardrobe Unit", cost: 30000 },
+        { material: "Ambient Lighting", cost: 10000 },
+        { material: "Wood Flooring", cost: 25000 }
+    ],
+
+    "Minimalist Smart Kitchen": [
+        { material: "Modular Cabinets", cost: 50000 },
+        { material: "Granite Countertop", cost: 20000 },
+        { material: "Smart Lighting", cost: 9000 },
+        { material: "Kitchen Appliances", cost: 45000 }
+    ],
+
+    "Smart Office Workspace": [
+        { material: "Work Desk", cost: 20000 },
+        { material: "Ergonomic Chairs", cost: 18000 },
+        { material: "LED Panel Lights", cost: 8000 },
+        { material: "Wood Flooring", cost: 25000 }
+    ],
+    "Luxury Dining Area": [
+    { material: "Dining Table Set", cost: 35000 },
+    { material: "Designer Ceiling Lights", cost: 12000 },
+    { material: "Wall Paneling", cost: 18000 },
+    { material: "Premium Flooring", cost: 28000 }
+],
+
+"Compact Studio Apartment": [
+    { material: "Space Saving Furniture", cost: 42000 },
+    { material: "Storage Cabinets", cost: 25000 },
+    { material: "Smart Lighting System", cost: 10000 },
+    { material: "Wood Finish Flooring", cost: 30000 }
+],
+
+"Balcony Lounge Design": [
+    { material: "Outdoor Seating Set", cost: 22000 },
+    { material: "Wood Deck Flooring", cost: 18000 },
+    { material: "Decorative Plants", cost: 8000 },
+    { material: "Ambient Wall Lighting", cost: 9000 }
+],
+
+"Modern Bathroom Concept": [
+    { material: "Premium Bathtub", cost: 40000 },
+    { material: "Wall & Floor Tiles", cost: 30000 },
+    { material: "Glass Shower Partition", cost: 20000 },
+    { material: "Vanity & Storage Unit", cost: 18000 }
+],
+    "Scandinavian Living Space": [
+        { material: "Engineered Wood TV Unit", cost: 30000 },
+        { material: "Fabric Sofa", cost: 38000 },
+        { material: "Wooden Center Table", cost: 10000 },
+        { material: "Curtains & Rods", cost: 9000 },
+        { material: "Indoor Decor & Plants", cost: 8000 },
+        { material: "Warm Lighting Fixtures", cost: 12000 }
+    ],
+
+    "Smart Home Theater Room": [
+        { material: "Acoustic Wall Panels", cost: 45000 },
+        { material: "Recliner Seating", cost: 55000 },
+        { material: "Wall Paneling / Wallpaper", cost: 20000 },
+        { material: "Media Console Cabinetry", cost: 18000 },
+        { material: "Ambient LED Lighting", cost: 12000 }
+    ],
+
+    "Kids Smart Bedroom": [
+        { material: "Custom Bed with Storage", cost: 35000 },
+        { material: "Study Desk & Shelving", cost: 22000 },
+        { material: "Wardrobe Unit", cost: 30000 },
+        { material: "Wall Decor Panels", cost: 12000 },
+        { material: "Lighting Fixtures", cost: 11000 }
+    ],
+
+    "Luxury Walk-in Wardrobe": [
+        { material: "Modular Wardrobe System", cost: 70000 },
+        { material: "Glass Shutters", cost: 30000 },
+        { material: "Drawer Organizers", cost: 20000 },
+        { material: "Island Storage Unit", cost: 35000 },
+        { material: "Spot Lighting", cost: 15000 }
+    ],
+
+    "Modern Entryway": [
+        { material: "Wall Cladding Panels", cost: 28000 },
+        { material: "Floating Console Unit", cost: 20000 },
+        { material: "Decor Mirror", cost: 12000 },
+        { material: "Lighting Fixtures", cost: 15000 }
+    ],
+
+    "Eco-Friendly Green Interior": [
+        { material: "Premium Sofa Set", cost: 75000 },
+        { material: "Glass Panel System", cost: 45000 },
+        { material: "Wood Ceiling Panels", cost: 35000 },
+        { material: "Stone Flooring Finish", cost: 40000 },
+        { material: "Decor Lighting", cost: 15000 }
+    ],
+
+    "Premium Guest Master Bedroom": [
+        { material: "Custom Bed Frame", cost: 45000 },
+        { material: "Wall Paneling", cost: 30000 },
+        { material: "Wardrobe Unit", cost: 42000 },
+        { material: "Curtains & Blinds", cost: 18000 },
+        { material: "Ambient Lighting", cost: 15000 }
+    ],
+
+    "Compact Study Room": [
+        { material: "Built-in Study Desk", cost: 25000 },
+        { material: "Storage Cabinetry", cost: 30000 },
+        { material: "Bed Unit", cost: 35000 },
+        { material: "Wall Shelving", cost: 15000 },
+        { material: "Lighting Fixtures", cost: 12000 }
+    ]
+
+
+};
+
+function openPopup(designName) {
+    const popup = document.getElementById("designPopup");
+    const list = document.getElementById("materialList");
+    const totalBox = document.getElementById("grandTotal");
+    const title = document.getElementById("designTitle");
+
+    list.innerHTML = "";
+    title.innerText = designName;
+
+    let total = 0;
+
+    designs[designName].forEach(item => {
+        total += item.cost;
+
+        list.innerHTML += `
+            <tr>
+                <td>${item.material}</td>
+                <td>₹ ${item.cost.toLocaleString()}</td>
+            </tr>
+        `;
+    });
+
+    // ⭐ STORE VALUES FOR PAYMENT PAGE
+    selectedDesign = designName;
+    totalAmount = total;
+
+    totalBox.innerText = total.toLocaleString();
+    popup.style.display = "flex";
+}
+
+
+function closePopup() {
+    document.getElementById("designPopup").style.display = "none";
+}
+function goToContact() {
+    window.location.href =
+        "{% url 'contact' %}?design=" +
+        encodeURIComponent(selectedDesign) +
+        "&amount=" +
+        encodeURIComponent(totalAmount);
+}
+
+
+
+</script>
+
+</body>
+</html>
