@@ -23,11 +23,11 @@ The system takes input parameters related to an interior design plan and process
 Setup Instructions -
 *Clone the repository
 *Navigate to the project directory
-*Install dependencies
+*Install dependencies :
        pip install -r requirements.txt
-*Run the server
+*Run the server :
        python manage.py runserver
-*Open in browser
+*Open in browser :
        http://127.0.0.1:8000/
 
 Future Enhancements -
