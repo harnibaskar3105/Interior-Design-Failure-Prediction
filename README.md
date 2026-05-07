@@ -49,40 +49,41 @@ pip install -r requirements.txt
 5. Create a .env file
 
 Create a .env file in the project root directory and add the required settings such as:
-
 SECRET_KEY
 ALLOWED_HOSTS
 Database configurations
+
 6. Apply migrations
 python manage.py migrate
+
 7. Create admin account
 python manage.py createsuperuser
+
 8. Run the project
 python manage.py runserver
-9. Open in browser
+
+10. Open in browser
 http://127.0.0.1:8000/
+
 Important Notes
-The ML model files (interior_model.pkl, room_encoder.pkl, etc.) are necessary for prediction functionality.
-Make sure these files are placed inside the appropriate project directory.
-The project uses SQLite as the default database.
-This project was mainly developed for learning and academic purposes.
-Future Improvements
-Integration of advanced Machine Learning models
-Better UI/UX design
-Deployment as a live web application
-Use of real-world datasets for improved prediction accuracy
-What I Learned
+-The ML model files (interior_model.pkl, room_encoder.pkl, etc.) are necessary for prediction functionality.
+-Make sure these files are placed inside the appropriate project directory.
+--The project uses SQLite as the default database.
+-This project was mainly developed for learning and academic purposes.
+-Future Improvements
+-Integration of advanced Machine Learning models
+-Better UI/UX design
+-Deployment as a live web application
+-Use of real-world datasets for improved prediction accuracy
+-What I Learned
 
 Through this project, I gained practical experience in:
 
-Django and basic Flask development
-Backend logic implementation
-Building prediction-based systems
-Managing a complete project structure from frontend to backend
-Author
+-Django and basic Flask development
+-Backend logic implementation
+-Building prediction-based systems
+-Managing a complete project structure from frontend to backend
 
-Harni S B
+Author - Harni S B
 
-Disclaimer
-
-This project was created for academic learning and practice purposes.
+Disclaimer - This project was created for academic learning and practice purposes.
