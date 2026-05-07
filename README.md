@@ -4,13 +4,14 @@ The Interior Design Failure Prediction System is a project developed to identify
 
 This project helped in understanding how technology can assist in improving planning and decision-making in interior design.
 
-Key Features
-Detects possible design inconsistencies early
-Analyzes important design factors like space, lighting, materials, and layout
-Provides suggestion-based improvements
-Simple and easy-to-use interface
-Helps reduce unnecessary cost, time, and rework
-Tech Stack
+Key Features:
+-Detects possible design inconsistencies early
+-Analyzes important design factors like space, lighting, materials, and layout
+-Provides suggestion-based improvements
+-Simple and easy-to-use interface
+-Helps reduce unnecessary cost, time, and rework
+
+Tech Stack:
 Programming Language: Python
 Frameworks: Django, Flask (Basic)
 Frontend: HTML, CSS
@@ -19,18 +20,9 @@ Project Preview
 
 ⚠️ Note:
 This project is not currently deployed as a fully working live website because it is built using Django backend functionalities.
-
 The GitHub Pages/live link may not work properly, but you can still explore the project through the "Project Screenshots" folder available in this repository.
 
-The screenshots include:
-
-Home page
-Prediction pages
-Admin panel
-Output results
-User interface previews
-How It Works
-
+How It Works:
 The system takes input related to an interior design plan and processes it using predefined logic and conditions. Based on the inputs provided, it predicts possible design failures and suggests improvements to achieve a better and more efficient design plan.
 
 Setup Instructions
@@ -60,21 +52,35 @@ python manage.py runserver
 http://127.0.0.1:8000/
 
 Important Notes : 
+
 -The ML model files (interior_model.pkl, room_encoder.pkl, etc.) are necessary for prediction functionality.
+
 -Make sure these files are placed inside the appropriate project directory.
+
 -The project uses SQLite as the default database.
+
 -This project was mainly developed for learning and academic purposes.
+
 -Future Improvements
+
 -Integration of advanced Machine Learning model.
+
 -Better UI/UX design
+
 -Deployment as a live web application
+
 -Use of real-world datasets for improved prediction accuracy
 
 What I Learned :
+
 Through this project, I gained practical experience in:
+
 -Django and basic Flask development
+
 -Backend logic implementation
+
 -Building prediction-based systems
+
 -Managing a complete project structure from frontend to backend
 
 Author - Harni S B
