@@ -25,7 +25,7 @@ The GitHub Pages/live link may not work properly, but you can still explore the 
 How It Works:
 The system takes input related to an interior design plan and processes it using predefined logic and conditions. Based on the inputs provided, it predicts possible design failures and suggests improvements to achieve a better and more efficient design plan.
 
-Setup Instructions
+Setup Instructions :
 1. Clone the repository
 git clone https://github.com/yourusername/interior-design-prediction.git
 cd interior-design-prediction
@@ -52,35 +52,21 @@ python manage.py runserver
 http://127.0.0.1:8000/
 
 Important Notes : 
-
 -The ML model files (interior_model.pkl, room_encoder.pkl, etc.) are necessary for prediction functionality.
-
 -Make sure these files are placed inside the appropriate project directory.
-
 -The project uses SQLite as the default database.
-
 -This project was mainly developed for learning and academic purposes.
-
 -Future Improvements
-
 -Integration of advanced Machine Learning model.
-
 -Better UI/UX design
-
 -Deployment as a live web application
-
 -Use of real-world datasets for improved prediction accuracy
 
 What I Learned :
-
 Through this project, I gained practical experience in:
-
 -Django and basic Flask development
-
 -Backend logic implementation
-
 -Building prediction-based systems
-
 -Managing a complete project structure from frontend to backend
 
 Author - Harni S B
