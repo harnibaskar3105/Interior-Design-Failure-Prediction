@@ -46,22 +46,16 @@ macOS/Linux
 source venv/bin/activate
 4. Install required packages
 pip install -r requirements.txt
-5. Create a .env file
-
-Create a .env file in the project root directory and add the required settings such as:
+5. Create a .env file in the project root directory and add the required settings such as:
 SECRET_KEY
 ALLOWED_HOSTS
 Database configurations
-
 6. Apply migrations
 python manage.py migrate
-
 7. Create admin account
 python manage.py createsuperuser
-
 8. Run the project
 python manage.py runserver
-
 10. Open in browser
 http://127.0.0.1:8000/
 
