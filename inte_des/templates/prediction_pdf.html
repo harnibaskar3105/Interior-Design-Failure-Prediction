@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -55,7 +56,7 @@
 
 <!-- HEADER WITH LOGO -->
 <div class="header">
-    <img src="{{ STATIC_ROOT }}/images/Smart home logo(png).png" class="logo">
+    <img src="{% static 'images/Smart home logo(png).png' %}" class="logo">
     <h1>Interior Design Failure Prediction Report</h1>
 </div>
 

@@ -140,7 +140,7 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # 👇 this is where your logo lives
 STATICFILES_DIRS = [
-    BASE_DIR / 'static',
+    BASE_DIR / 'inte_des' / 'static',
 ]
 
 # settings.py
