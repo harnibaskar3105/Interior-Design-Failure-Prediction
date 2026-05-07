@@ -312,7 +312,7 @@ def edit(request):
 
     if request.method == "POST":
         # --- Update User ---
-        user.first_name = request.POST.get('full_name')
+        user.first_name = request.POST.get('first_name') or user.first_name
         user.email = request.POST.get('email')
         user.username = request.POST.get('username')
 

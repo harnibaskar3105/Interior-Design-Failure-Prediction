@@ -20,15 +20,62 @@ Tech Stack -
 How It Works -
 The system takes input parameters related to an interior design plan and processes them using a rule-based, data-driven approach. Based on predefined conditions and logic, it identifies possible design failures and provides suggestions to improve the overall design quality.
 
-Setup Instructions -
-*Clone the repository
-*Navigate to the project directory
-*Install dependencies :
-       pip install -r requirements.txt
-*Run the server :
-       python manage.py runserver
-*Open in browser :
-       http://127.0.0.1:8000/
+Setup Instructions - 
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/interior-design-prediction.git
+   cd interior-design-prediction
+   ```
+
+2. Create a virtual environment:
+   ```bash
+   python -m venv venv
+   # On Windows:
+   venv\Scripts\activate
+   # On macOS/Linux:
+   source venv/bin/activate
+   ```
+
+3. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. Create a `.env` file in the root directory:
+   ```bash
+   cp .env.example .env
+   ```
+   Update `.env` with your settings (SECRET_KEY, ALLOWED_HOSTS, etc.)
+
+5. Run migrations:
+   ```bash
+   python manage.py migrate
+   ```
+
+6. Create a superuser (admin):
+   ```bash
+   python manage.py createsuperuser
+   ```
+
+7. Run the development server:
+   ```bash
+   python manage.py runserver
+   ```
+
+8. Open in browser:
+   ```
+   http://127.0.0.1:8000/
+   ```
+
+9. Admin panel (optional):
+   ```
+   http://127.0.0.1:8000/admin
+   ```
+
+Important Notes:
+- The ML model files (interior_model.pkl, room_encoder.pkl, etc.) are required to run predictions. Make sure these files are in the `inte_des/` directory.
+- See `train_model.py` to regenerate the model files if needed.
+- Database is SQLite by default; for production, configure PostgreSQL in `.env`
 
 Future Enhancements -
 *Integration of Machine Learning models for advanced predictions
