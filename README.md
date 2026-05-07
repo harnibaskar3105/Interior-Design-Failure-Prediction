@@ -7,7 +7,7 @@ This project helped in understanding how technology can assist in improving plan
 Key Features:
 -Detects possible design inconsistencies early
 -Analyzes important design factors like space, lighting, materials, and layout
--Provides suggestion-based improvements
+-Provides suggestion-based improvements 
 -Simple and easy-to-use interface
 -Helps reduce unnecessary cost, time, and rework
 
