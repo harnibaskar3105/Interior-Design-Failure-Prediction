@@ -20,7 +20,7 @@ Project Preview
 ⚠️ Note:
 This project is not currently deployed as a fully working live website because it is built using Django backend functionalities.
 
-The GitHub Pages/live link may not work properly, but you can still explore the project through the project screenshots folder available in this repository.
+The GitHub Pages/live link may not work properly, but you can still explore the project through the "Project Screenshots" folder available in this repository.
 
 The screenshots include:
 
