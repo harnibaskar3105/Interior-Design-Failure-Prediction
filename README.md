@@ -82,6 +82,8 @@ Through this project, I gained practical experience in:
 
 -Managing a complete project structure from frontend to backend
 
+
+
 Author - Harni S B
 
 Disclaimer - This project was created for academic learning and practice purposes.
