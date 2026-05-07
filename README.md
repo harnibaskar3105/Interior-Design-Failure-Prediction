@@ -1,96 +1,88 @@
-Interior Design Failure Prediction System
+Overview
 
-Overview -
-The Interior Design Failure Prediction System is developed to identify potential issues in interior design plans before execution. It helps in detecting design flaws related to space utilization, material selection, lighting, and layout, allowing improvements at an early stage.
-This project focuses on making design planning more efficient by reducing the chances of costly mistakes and rework.
+The Interior Design Failure Prediction System is a project developed to identify possible issues in interior design plans before implementation. The main goal of this project is to reduce design mistakes by analyzing factors such as space usage, lighting, material selection, and layout planning at an early stage.
 
-Key Features -
-*Early detection of design inconsistencies
-*Analysis of multiple design factors (space, lighting, materials, layout)
-*Suggestion-based improvements for better decision-making
-*Simple and user-friendly interface
-*Helps reduce cost, time, and resource wastage
+This project helped in understanding how technology can assist in improving planning and decision-making in interior design.
 
-Tech Stack - 
-*Programming Language: Python
-*Frameworks: Django, Flask (basic)
-*Frontend: HTML, CSS
-*Database: SQLite
+Key Features
+Detects possible design inconsistencies early
+Analyzes important design factors like space, lighting, materials, and layout
+Provides suggestion-based improvements
+Simple and easy-to-use interface
+Helps reduce unnecessary cost, time, and rework
+Tech Stack
+Programming Language: Python
+Frameworks: Django, Flask (Basic)
+Frontend: HTML, CSS
+Database: SQLite
+Project Preview
 
-How It Works -
-The system takes input parameters related to an interior design plan and processes them using a rule-based, data-driven approach. Based on predefined conditions and logic, it identifies possible design failures and provides suggestions to improve the overall design quality.
+⚠️ Note:
+This project is not currently deployed as a fully working live website because it is built using Django backend functionalities.
 
-Setup Instructions - 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/interior-design-prediction.git
-   cd interior-design-prediction
-   ```
+The GitHub Pages/live link may not work properly, but you can still explore the project through the project screenshots folder available in this repository.
 
-2. Create a virtual environment:
-   ```bash
-   python -m venv venv
-   # On Windows:
-   venv\Scripts\activate
-   # On macOS/Linux:
-   source venv/bin/activate
-   ```
+The screenshots include:
 
-3. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
+Home page
+Prediction pages
+Admin panel
+Output results
+User interface previews
+How It Works
 
-4. Create a `.env` file in the root directory:
-   ```bash
-   cp .env.example .env
-   ```
-   Update `.env` with your settings (SECRET_KEY, ALLOWED_HOSTS, etc.)
+The system takes input related to an interior design plan and processes it using predefined logic and conditions. Based on the inputs provided, it predicts possible design failures and suggests improvements to achieve a better and more efficient design plan.
 
-5. Run migrations:
-   ```bash
-   python manage.py migrate
-   ```
+Setup Instructions
+1. Clone the repository
+git clone https://github.com/yourusername/interior-design-prediction.git
+cd interior-design-prediction
+2. Create a virtual environment
+python -m venv venv
+3. Activate the environment
+Windows
+venv\Scripts\activate
+macOS/Linux
+source venv/bin/activate
+4. Install required packages
+pip install -r requirements.txt
+5. Create a .env file
 
-6. Create a superuser (admin):
-   ```bash
-   python manage.py createsuperuser
-   ```
+Create a .env file in the project root directory and add the required settings such as:
 
-7. Run the development server:
-   ```bash
-   python manage.py runserver
-   ```
+SECRET_KEY
+ALLOWED_HOSTS
+Database configurations
+6. Apply migrations
+python manage.py migrate
+7. Create admin account
+python manage.py createsuperuser
+8. Run the project
+python manage.py runserver
+9. Open in browser
+http://127.0.0.1:8000/
+Important Notes
+The ML model files (interior_model.pkl, room_encoder.pkl, etc.) are necessary for prediction functionality.
+Make sure these files are placed inside the appropriate project directory.
+The project uses SQLite as the default database.
+This project was mainly developed for learning and academic purposes.
+Future Improvements
+Integration of advanced Machine Learning models
+Better UI/UX design
+Deployment as a live web application
+Use of real-world datasets for improved prediction accuracy
+What I Learned
 
-8. Open in browser:
-   ```
-   http://127.0.0.1:8000/
-   ```
+Through this project, I gained practical experience in:
 
-9. Admin panel (optional):
-   ```
-   http://127.0.0.1:8000/admin
-   ```
+Django and basic Flask development
+Backend logic implementation
+Building prediction-based systems
+Managing a complete project structure from frontend to backend
+Author
 
-Important Notes:
-- The ML model files (interior_model.pkl, room_encoder.pkl, etc.) are required to run predictions. Make sure these files are in the `inte_des/` directory.
-- See `train_model.py` to regenerate the model files if needed.
-- Database is SQLite by default; for production, configure PostgreSQL in `.env`
-
-Future Enhancements -
-*Integration of Machine Learning models for advanced predictions
-*Enhanced UI/UX for better user experience
-*Deployment as a live web application
-*Use of real-world datasets for improved accuracy
-
-Learning Outcome - 
-*Gained hands-on experience with Django and Flask
-*Improved understanding of backend development
-*Learned to design logic-based predictive systems
-*Worked on structuring a complete end-to-end project
-
-Author -
 Harni S B
 
-Disclaimer -
-This project is developed for academic and learning purposes.
+Disclaimer
+
+This project was created for academic learning and practice purposes.
